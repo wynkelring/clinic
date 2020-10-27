@@ -24,4 +24,14 @@
         <put-attribute name="body" value="/hello.jsp" />
     </definition>
 
+    <definition name="login" extends="base.definition">
+        <put-attribute name="title" value="Login" />
+        <put-attribute name="body" value="/login.jsp" />
+    </definition>
+
+    <definition name="accessDenied" extends="base.definition">
+        <put-attribute name="title" value="AccessDenied" />
+        <put-attribute name="body" value="/accessDenied.jsp" />
+    </definition>
+
 </tiles-definitions>
