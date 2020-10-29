@@ -1,4 +1,4 @@
-package pl.pisarkiewicz.configuration;
+package pl.pisarkiewicz.Global.configuration;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 

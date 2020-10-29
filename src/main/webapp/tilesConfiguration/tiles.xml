@@ -19,6 +19,11 @@
         <put-attribute name="body" value="/addUser.jsp" />
     </definition>
 
+    <definition name="addRole" extends="base.definition">
+        <put-attribute name="title" value="AddRole" />
+        <put-attribute name="body" value="/addRole.jsp" />
+    </definition>
+
     <definition name="hello" extends="base.definition">
         <put-attribute name="title" value="Hello" />
         <put-attribute name="body" value="/hello.jsp" />

@@ -2,7 +2,9 @@ package pl.pisarkiewicz.User.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import pl.pisarkiewicz.Role.repository.RoleRepository;
 import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.User.repository.UserRepository;
 
@@ -10,14 +12,21 @@ import pl.pisarkiewicz.User.repository.UserRepository;
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RoleRepository roleRepository) {
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public User getUser(Long id) {
-        return userRepository.findById(id).orElse(null);
+        return userRepository.getOne(id);
+    }
+
+    @Override
+    public User getUserByLogin(String login) {
+        return userRepository.findByLogin(login).get();
     }
 
     @Override
@@ -27,6 +36,8 @@ public class UserService implements IUserService {
 
     @Override
     public void addUser(User user) {
+        user.getRoles().add(roleRepository.findByRole("ROLE_PATIENT").orElse(null));
+        user.setPassword(hashPassword(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -37,9 +48,11 @@ public class UserService implements IUserService {
 
     @Override
     public void deleteUser(Long id) {
-        User user = userRepository.findById(id).orElse(null);
-        if(user != null) {
-            userRepository.delete(user);
-        }
+        userRepository.findById(id).ifPresent(userRepository::delete);
+    }
+
+    private  String hashPassword(String password) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        return passwordEncoder.encode(password);
     }
 }

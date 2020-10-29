@@ -22,8 +22,8 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "telephone", "error.field.required");
         ValidationUtils.rejectIfEmpty(errors, "email", "error.field.required");
 
-        if (errors.getErrorCount() == 0) {
-            if (StringUtils.hasText(((User) o).getEmail()) && !emailValidator.isValid(((User) o).getEmail())) {
+        if(errors.getErrorCount() == 0) {
+            if(StringUtils.hasText(((User) o).getEmail()) && !emailValidator.isValid(((User) o).getEmail())) {
                 errors.rejectValue("email", "error.email.invalid");
             }
         }

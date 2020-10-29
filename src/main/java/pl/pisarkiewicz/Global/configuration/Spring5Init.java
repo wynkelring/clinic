@@ -1,4 +1,4 @@
-package pl.pisarkiewicz.configuration;
+package pl.pisarkiewicz.Global.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
