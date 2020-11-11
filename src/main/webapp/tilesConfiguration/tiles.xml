@@ -14,11 +14,6 @@
         <put-attribute name="footer" value="/footer.jsp" />
     </definition>
 
-    <definition name="addUser" extends="base.definition">
-        <put-attribute name="title" value="AddUser" />
-        <put-attribute name="body" value="/addUser.jsp" />
-    </definition>
-
     <definition name="addRole" extends="base.definition">
         <put-attribute name="title" value="AddRole" />
         <put-attribute name="body" value="/addRole.jsp" />
@@ -33,6 +28,11 @@
     <definition name="login" extends="base.definition">
         <put-attribute name="title" value="Login" />
         <put-attribute name="body" value="/login.jsp" />
+    </definition>
+
+    <definition name="register" extends="base.definition">
+        <put-attribute name="title" value="Register" />
+        <put-attribute name="body" value="/register.jsp" />
     </definition>
 
     <definition name="accessDenied" extends="base.definition">

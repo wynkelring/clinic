@@ -25,8 +25,8 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User getUserByLogin(String login) {
-        return userRepository.findByLogin(login).get();
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email).get();
     }
 
     @Override
@@ -51,7 +51,7 @@ public class UserService implements IUserService {
         userRepository.findById(id).ifPresent(userRepository::delete);
     }
 
-    private  String hashPassword(String password) {
+    private String hashPassword(String password) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         return passwordEncoder.encode(password);
     }

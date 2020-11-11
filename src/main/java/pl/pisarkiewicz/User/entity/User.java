@@ -2,6 +2,7 @@ package pl.pisarkiewicz.User.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import pl.pisarkiewicz.Role.entity.Role;
 
@@ -15,16 +16,12 @@ import java.util.Set;
 @Table
 @Getter
 @Setter
+@ToString
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @NotNull
-    @Column(unique = true)
-    @Size(min = 2, max = 30, message = "{error.field.size.regexp}")
-    private String login;
 
     @NotNull
     private String password;
@@ -41,11 +38,14 @@ public class User {
 
     @NotNull
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotNull
-    @Size(min = 9, max = 9, message = "{error.field.size.regexp}")
     private String telephone;
+
+    @NotNull
+    private Long pesel;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>(0);

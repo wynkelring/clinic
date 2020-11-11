@@ -18,9 +18,12 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="#"><spring:message code="menu.home"/> <span class="sr-only">(current)</span></a>
                 </li>
-                <sec:authorize access="isAnonymous()">
+                <sec:authorize access="!isAuthenticated()">
                     <li class="nav-item">
                         <a class="nav-link" href="<c:url value="/login"/>"><spring:message code="menu.login"/></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<c:url value="/register"/>"><spring:message code="menu.register"/></a>
                     </li>
                 </sec:authorize>
                 <c:if test="${pageContext.request.userPrincipal.name != null}">
