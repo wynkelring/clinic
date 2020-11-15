@@ -15,4 +15,6 @@ public interface IUserService {
     void editUser(User user);
     @Secured("ROLE_ADMIN")
     void deleteUser(Long id);
+    void activateUser(String token);
+    boolean userExists(String email);
 }

@@ -8,12 +8,13 @@
 <div class="container">
     <c:if test="${not empty error}">
         <div class="alert alert-danger container col-5" role="alert">
-            <spring:message code="login.error"/>
+            <spring:message code="${error}"/>
         </div>
     </c:if>
     <c:if test="${not empty msg}">
         <div class="alert alert-primary container col-5" role="alert">
-            <spring:message code="login.logout"/>
+            <spring:message code="${msg}"/>
+
         </div>
     </c:if>
     <form class="form-signin" name='loginForm' action="<c:url value='/login'/>" method='POST'>

@@ -19,10 +19,11 @@ import java.util.Locale;
 public class MainController {
 
     private final IUserService userService;
-    private final UserValidator userValidator = new UserValidator();
+    private final UserValidator userValidator;
 
     public MainController(IUserService userService) {
         this.userService = userService;
+        this.userValidator = new UserValidator(userService);
     }
 
     @GetMapping
@@ -42,10 +43,10 @@ public class MainController {
                         @RequestParam(value = "logout", required = false) String logout,
                         Model model) {
         if (error != null) {
-            model.addAttribute("error", "Invalid username and password");
+            model.addAttribute("error", "login.error");
         }
         if (logout != null) {
-            model.addAttribute("msg", "Logged out succesfully");
+            model.addAttribute("msg", "login.logout");
         }
         return "login";
     }
@@ -65,6 +66,12 @@ public class MainController {
             return "redirect:/";
         }
         return "register";
+    }
+
+    @RequestMapping("/activateAccount")
+    public String activateAccount(@RequestParam(name = "token") String token) {
+        userService.activateUser(token);
+        return "login";
     }
 
     @RequestMapping("/accessDenied")

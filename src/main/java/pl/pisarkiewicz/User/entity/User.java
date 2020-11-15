@@ -38,7 +38,6 @@ public class User {
 
     @NotNull
     @Email
-    @Column(unique = true)
     private String email;
 
     @NotNull
@@ -46,6 +45,9 @@ public class User {
 
     @NotNull
     private Long pesel;
+
+    @NotNull
+    private String activationToken;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>(0);

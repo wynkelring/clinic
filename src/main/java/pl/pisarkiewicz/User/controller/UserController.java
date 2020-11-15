@@ -10,11 +10,14 @@ import pl.pisarkiewicz.User.validator.UserValidator;
 public class UserController {
 
     private final IUserService userService;
-    private final UserValidator userValidator = new UserValidator();
+    private final UserValidator userValidator;
 
     public UserController(IUserService userService) {
         this.userService = userService;
+        this.userValidator = new UserValidator(userService);
     }
+
+
 
 }
 

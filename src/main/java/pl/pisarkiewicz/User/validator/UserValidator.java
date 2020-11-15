@@ -6,11 +6,17 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 import pl.pisarkiewicz.User.entity.User;
+import pl.pisarkiewicz.User.service.IUserService;
 
 import java.util.regex.Pattern;
 
 public class UserValidator implements Validator {
+    private final IUserService userService;
     EmailValidator emailValidator = EmailValidator.getInstance();
+
+    public UserValidator(IUserService userService) {
+        this.userService = userService;
+    }
 
     @Override
     public boolean supports(Class<?> aClass) {
@@ -28,6 +34,10 @@ public class UserValidator implements Validator {
 
         if (errors.getErrorCount() == 0) {
             Pattern pattern;
+
+            if (StringUtils.hasText(((User) o).getEmail()) && userService.userExists(((User) o).getEmail())) {
+                errors.rejectValue("email", "error.email.exists");
+            }
 
             if (StringUtils.hasText(((User) o).getEmail()) && !emailValidator.isValid(((User) o).getEmail())) {
                 errors.rejectValue("email", "error.email.invalid");
