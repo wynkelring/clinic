@@ -35,6 +35,11 @@
         <put-attribute name="body" value="/register.jsp" />
     </definition>
 
+    <definition name="editProfile" extends="base.definition">
+        <put-attribute name="title" value="Edit Profile" />
+        <put-attribute name="body" value="/editProfile.jsp" />
+    </definition>
+
     <definition name="accessDenied" extends="base.definition">
         <put-attribute name="title" value="AccessDenied" />
         <put-attribute name="body" value="/accessDenied.jsp" />

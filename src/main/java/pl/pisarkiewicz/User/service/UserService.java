@@ -6,6 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.pisarkiewicz.Global.service.EmailService;
 import pl.pisarkiewicz.Role.repository.RoleRepository;
+import pl.pisarkiewicz.User.dto.UserEditDTO;
 import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.User.repository.UserRepository;
 
@@ -45,16 +46,20 @@ public class UserService implements IUserService {
         user.setPassword(hashPassword(user.getPassword()));
         user.setActivationToken(createVerificationToken(user));
         userRepository.save(user);
-        emailService.sendEmail(
+        /*emailService.sendEmail(
                 user.getEmail(),
                 "Dziękujemy za rejestrację",
                 "Witaj na naszej stronie - aktywuj swoje konto <br>" +
                         "http://localhost:8080/activateAccount?token=" + user.getActivationToken()
-        );
+        );*/
     }
 
     @Override
-    public void editUser(User user) {
+    public void editUser(UserEditDTO euser, User user) {
+        user.setFirstName(euser.getFirstName());
+        user.setLastName(euser.getLastName());
+        user.setTelephone(euser.getTelephone());
+        user.setPesel(euser.getPesel());
         userRepository.save(user);
     }
 

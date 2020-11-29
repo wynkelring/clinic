@@ -14,7 +14,6 @@
     <c:if test="${not empty msg}">
         <div class="alert alert-primary container col-5" role="alert">
             <spring:message code="${msg}"/>
-
         </div>
     </c:if>
     <form class="form-signin" name='loginForm' action="<c:url value='/login'/>" method='POST'>

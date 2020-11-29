@@ -16,7 +16,7 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#"><spring:message code="menu.home"/> <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="<c:url value="/"/>"><spring:message code="menu.home"/> <span class="sr-only">(current)</span></a>
                 </li>
                 <sec:authorize access="!isAuthenticated()">
                     <li class="nav-item">
@@ -31,7 +31,7 @@
                         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="profileDropdown" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}</a>
                         <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="<c:url value="/myProfile"/>">My profile</a>
+                            <a class="dropdown-item" href="<c:url value="/users/editProfile"/>">My profile</a>
                             <a class="dropdown-item" href="<c:url value="/myVisits"/>">My visits</a>
                             <a class="dropdown-item" href="javascript:formSubmit()"><spring:message code="menu.logout"/></a>
                         </div>

@@ -60,7 +60,6 @@ public class MainController {
     @PostMapping("/register")
     public String registerPost(@Valid @ModelAttribute("register") User user, BindingResult result) {
         userValidator.validate(user, result);
-        System.out.println(result.getAllErrors());
         if (result.getErrorCount() == 0) {
             userService.addUser(user);
             return "redirect:/";
