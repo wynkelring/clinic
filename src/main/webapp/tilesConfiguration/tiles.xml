@@ -61,4 +61,9 @@
         <put-attribute name="body" value="/accessDenied.jsp" />
     </definition>
 
+    <definition name="userList" extends="base.definition">
+        <put-attribute name="title" value="User List" />
+        <put-attribute name="body" value="/userList.jsp" />
+    </definition>
+
 </tiles-definitions>

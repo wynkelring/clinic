@@ -31,6 +31,11 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public Page<User> getUsersWhereIdIsNot(Long id, Pageable pageable) {
+        return userRepository.findAllByIdIsNot(id, pageable);
+    }
+
+    @Override
     public User getUserByEmail(String email) {
         return userRepository.findByEmail(email).get();
     }

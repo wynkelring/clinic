@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/"/>"><spring:message code="menu.users"/></a>
+                    <a class="nav-link" href="<c:url value="/users/list/1"/>"><spring:message code="menu.users"/></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/"/>"><spring:message code="menu.visitsHours"/></a>

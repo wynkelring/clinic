@@ -9,6 +9,7 @@ import pl.pisarkiewicz.User.entity.User;
 
 public interface IUserService {
     User getUser(Long id);
+    Page<User> getUsersWhereIdIsNot(Long id, Pageable pageable);
     User getUserByEmail(String email);
     Page<User> getUsers(Pageable pageable);
     void addUser(User user);

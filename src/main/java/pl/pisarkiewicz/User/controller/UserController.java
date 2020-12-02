@@ -1,5 +1,9 @@
 package pl.pisarkiewicz.User.controller;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,6 +30,20 @@ public class UserController {
         this.userService = userService;
         this.userValidator = new UserValidator(userService);
         this.userEditValidator = new UserEditValidator();
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/list/{id}")
+    public String register(Principal principal,
+                                 @PathVariable Integer id,
+                                 Model model) {
+        User user = userService.getUserByEmail(principal.getName());
+        Pageable pageable = PageRequest.of(id - 1, 1);
+        Page<User> userPage = userService.getUsersWhereIdIsNot(user.getId(), pageable);
+        model.addAttribute("userList", userPage.getContent());
+        model.addAttribute("totalPages", userPage.getTotalPages());
+        model.addAttribute("currentPage", id);
+        return "userList";
     }
 
     @GetMapping("/editProfile")

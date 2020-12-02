@@ -1,5 +1,7 @@
 package pl.pisarkiewicz.User.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pl.pisarkiewicz.User.entity.User;
@@ -14,4 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findById(Long id);
     Optional<User> findByEmail(String email);
     Optional<User> findByActivationToken(String token);
+    Page<User> findAllByIdIsNot(Long id, Pageable pageable);
 }
