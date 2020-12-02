@@ -21,6 +21,9 @@
 </head>
 <body>
 <tiles:insertAttribute name="navbar"/>
+<sec:authorize access="hasAnyRole('ADMIN', 'DOCTOR')">
+    <tiles:insertAttribute name="navbar-admin"/>
+</sec:authorize>
 <div class="container mb-5 mt-2">
     <div class="row">
         <tiles:insertAttribute name="header"/>
