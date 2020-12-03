@@ -2,7 +2,6 @@ package pl.pisarkiewicz.User.entity;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import pl.pisarkiewicz.Role.entity.Role;
 import pl.pisarkiewicz.Visit.entity.Visit;
@@ -18,7 +17,6 @@ import java.util.Set;
 @Table
 @Getter
 @Setter
-@ToString
 public class User {
 
     @Id
@@ -56,10 +54,15 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>(0);
 
-    @OneToMany(mappedBy = "patient")
-    private Set<Visit> visit;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
+    private Set<Visit> visit = new HashSet<>(0);
 
-    @OneToMany(mappedBy = "doctor")
-    private Set<VisitHours> visitHours;
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
+    private Set<VisitHours> visitHours = new HashSet<>(0);
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
 }
 

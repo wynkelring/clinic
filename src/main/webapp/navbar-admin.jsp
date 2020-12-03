@@ -18,7 +18,7 @@
                     <a class="nav-link" href="<c:url value="/users/list/1"/>"><spring:message code="menu.users"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/"/>"><spring:message code="menu.visitsHours"/></a>
+                    <a class="nav-link" href="<c:url value="/visitHours"/>"><spring:message code="menu.visitsHours"/></a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/"/>"><spring:message code="menu.visits"/></a>

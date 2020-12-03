@@ -13,6 +13,7 @@ import pl.pisarkiewicz.User.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -44,6 +45,11 @@ public class UserService implements IUserService {
     public User getUserByEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
         return user.orElse(null);
+    }
+
+    @Override
+    public List<User> getDoctorsList() {
+        return userRepository.findAllByRoles(roleService.getByRoleName("ROLE_DOCTOR"));
     }
 
     @Override
