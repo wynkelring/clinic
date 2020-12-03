@@ -34,8 +34,8 @@ public class DataConstructor {
         User userAdmin = new User();
         userAdmin.setEmail("admin@mc.pl");
         userAdmin.setPassword("root");
-        userAdmin.setFirstName("Name");
-        userAdmin.setLastName("Name");
+        userAdmin.setFirstName("Admin");
+        userAdmin.setLastName("Admin");
         userAdmin.setPesel(11111111111L);
         userAdmin.setTelephone("111111111");
         userAdmin.setEnabled(true);
@@ -44,8 +44,8 @@ public class DataConstructor {
         User userDoctor = new User();
         userDoctor.setEmail("doctor@mc.pl");
         userDoctor.setPassword("root");
-        userDoctor.setFirstName("Name");
-        userDoctor.setLastName("Name");
+        userDoctor.setFirstName("doctor");
+        userDoctor.setLastName("doctor");
         userDoctor.setPesel(11111111111L);
         userDoctor.setTelephone("111111111");
         userDoctor.setEnabled(true);
@@ -54,8 +54,8 @@ public class DataConstructor {
         User userPatient = new User();
         userPatient.setEmail("patient@mc.pl");
         userPatient.setPassword("root");
-        userPatient.setFirstName("Name");
-        userPatient.setLastName("Name");
+        userPatient.setFirstName("patient");
+        userPatient.setLastName("patient");
         userPatient.setPesel(11111111111L);
         userPatient.setTelephone("111111111");
         userPatient.setEnabled(true);

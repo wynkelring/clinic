@@ -5,29 +5,34 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import pl.pisarkiewicz.Global.service.EmailService;
-import pl.pisarkiewicz.Role.repository.RoleRepository;
+import pl.pisarkiewicz.Role.entity.Role;
+import pl.pisarkiewicz.Role.service.RoleService;
 import pl.pisarkiewicz.User.dto.UserEditDTO;
 import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.User.repository.UserRepository;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService implements IUserService {
 
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final EmailService emailService;
 
-    public UserService(UserRepository userRepository, RoleRepository roleRepository, EmailService emailService) {
+    public UserService(UserRepository userRepository, RoleService roleService, EmailService emailService) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
         this.emailService = emailService;
     }
 
     @Override
     public User getUser(Long id) {
-        return userRepository.getOne(id);
+        Optional<User> user = userRepository.findById(id);
+        return user.orElse(null);
     }
 
     @Override
@@ -37,17 +42,13 @@ public class UserService implements IUserService {
 
     @Override
     public User getUserByEmail(String email) {
-        return userRepository.findByEmail(email).get();
-    }
-
-    @Override
-    public Page<User> getUsers(Pageable pageable) {
-        return userRepository.findAll(pageable);
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.orElse(null);
     }
 
     @Override
     public void addUser(User user) {
-        user.getRoles().add(roleRepository.findByRole("ROLE_PATIENT").orElse(null));
+        user.getRoles().add(roleService.getByRoleName("ROLE_PATIENT"));
         user.setPassword(hashPassword(user.getPassword()));
         user.setActivationToken(createVerificationToken(user));
         userRepository.save(user);
@@ -60,7 +61,24 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public void editUser(UserEditDTO euser, User user) {
+    public void editUserForAdmin(UserEditDTO euser, User user) {
+        user.setFirstName(euser.getFirstName());
+        user.setLastName(euser.getLastName());
+        user.setTelephone(euser.getTelephone());
+        user.setPesel(euser.getPesel());
+        System.out.println(euser.getRoles());
+        if (!euser.getRoles().isEmpty()) {
+            user.setRoles(roleService.convertStringsToRoles(euser.getRoles()));
+        } else {
+            Set<Role> roleSet = new HashSet<>(0);
+            roleSet.add(roleService.getByRoleName("ROLE_PATIENT"));
+            user.setRoles(roleSet);
+        }
+        userRepository.save(user);
+    }
+
+    @Override
+    public void editUserForUser(UserEditDTO euser, User user) {
         user.setFirstName(euser.getFirstName());
         user.setLastName(euser.getLastName());
         user.setTelephone(euser.getTelephone());
@@ -70,7 +88,13 @@ public class UserService implements IUserService {
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.findById(id).ifPresent(userRepository::delete);
+        Optional<User> oUser = userRepository.findById(id);
+        if (oUser.isPresent()) {
+            User user = oUser.get();
+            user.setEnabled(false);
+            user.setDeleted(true);
+            userRepository.save(user);
+        }
     }
 
     @Override

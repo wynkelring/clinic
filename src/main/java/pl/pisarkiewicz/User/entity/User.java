@@ -28,6 +28,8 @@ public class User {
 
     private boolean enabled;
 
+    private boolean deleted = false;
+
     @NotNull
     @Size(min = 2, max = 30, message = "{error.field.size.regexp}")
     private String firstName;

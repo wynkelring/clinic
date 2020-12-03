@@ -16,6 +16,7 @@
                     <th scope="col"><spring:message code="userList.email"/></th>
                     <th scope="col"><spring:message code="userList.active"/></th>
                     <th scope="col"><spring:message code="userList.roles"/></th>
+                    <th scope="col"><spring:message code="userList.manage"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -25,16 +26,21 @@
                     <td>${user.firstName}</td>
                     <td>${user.lastName}</td>
                     <td>${user.email}</td>
-                    <c:if test="${user.enabled}">
+                    <c:if test="${user.enabled && !user.deleted}">
                         <td><spring:message code="userList.active.true"/></td>
                     </c:if>
-                    <c:if test="${user.enabled = false}">
+                    <c:if test="${user.enabled == false && user.deleted}">
                         <td><spring:message code="userList.active.not"/></td>
                     </c:if>
                     <td>
                         <c:forEach items="${user.roles}" var="role">
                             <spring:message code="userList.roles.${role.role}"/>
                         </c:forEach>
+                    </td>
+                    <td>
+                        <a class="page-link" href="/users/get/${user.id}">
+                            <spring:message code="userList.manage"/>
+                        </a>
                     </td>
                 </tr>
                 </c:forEach>

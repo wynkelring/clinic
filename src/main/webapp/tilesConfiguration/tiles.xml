@@ -66,4 +66,9 @@
         <put-attribute name="body" value="/userList.jsp" />
     </definition>
 
+    <definition name="editUser" extends="base.definition">
+        <put-attribute name="title" value="Edit User" />
+        <put-attribute name="body" value="/editUser.jsp" />
+    </definition>
+
 </tiles-definitions>
