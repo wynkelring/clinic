@@ -1,5 +1,7 @@
 package pl.pisarkiewicz.VisitHours.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import pl.pisarkiewicz.User.service.UserService;
 import pl.pisarkiewicz.VisitHours.dto.VisitHoursDTO;
@@ -7,6 +9,7 @@ import pl.pisarkiewicz.VisitHours.entity.VisitHours;
 import pl.pisarkiewicz.VisitHours.repository.VisitHoursRepository;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class VisitHoursService implements IVisitHoursService {
@@ -33,6 +36,24 @@ public class VisitHoursService implements IVisitHoursService {
     }
 
     @Override
+    public void cancelVisitHoursForAdmin(Long id) {
+        Optional<VisitHours> visitHours = visitHoursRepository.findById(id);
+        visitHours.ifPresent(hours -> {
+            hours.setCancelled(true);
+            visitHoursRepository.save(hours);
+        });
+    }
+
+    @Override
+    public void cancelVisitHoursForDoctor(Long doctorId, Long id) {
+        Optional<VisitHours> visitHours = visitHoursRepository.findByIdAndDoctorId(id, doctorId);
+        visitHours.ifPresent(hours -> {
+            hours.setCancelled(true);
+            visitHoursRepository.save(hours);
+        });
+    }
+
+    @Override
     public boolean hasDoctorVisitingHours(Long doctorId, LocalDateTime startDate, LocalDateTime endDate) {
         return visitHoursRepository.existsByCancelledIsFalseAndDoctorIdAndStartDateIsBetweenOrEndDateIsBetween(
                 doctorId,
@@ -40,5 +61,15 @@ public class VisitHoursService implements IVisitHoursService {
                 endDate,
                 startDate,
                 endDate);
+    }
+
+    @Override
+    public Page<VisitHours> getVisitHoursNotCancelledForAdmin(Pageable pageable) {
+        return visitHoursRepository.findAllByCancelledIsFalseOrderByStartDateDesc(pageable);
+    }
+
+    @Override
+    public Page<VisitHours> getVisitHoursNotCancelledForDoctor(Long doctorId, Pageable pageable) {
+        return visitHoursRepository.findAllByCancelledIsFalseAndDoctorIdOrderByStartDateDesc(doctorId, pageable);
     }
 }
