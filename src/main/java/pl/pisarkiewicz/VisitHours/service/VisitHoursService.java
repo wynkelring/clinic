@@ -6,6 +6,8 @@ import pl.pisarkiewicz.VisitHours.dto.VisitHoursDTO;
 import pl.pisarkiewicz.VisitHours.entity.VisitHours;
 import pl.pisarkiewicz.VisitHours.repository.VisitHoursRepository;
 
+import java.time.LocalDateTime;
+
 @Service
 public class VisitHoursService implements IVisitHoursService {
     private final VisitHoursRepository visitHoursRepository;
@@ -28,5 +30,15 @@ public class VisitHoursService implements IVisitHoursService {
                 visitHours.getStartDate().plusMinutes(
                         visitHours.getVisitLength() * visitHours.getVisitsCount()));
         visitHoursRepository.save(visitHours);
+    }
+
+    @Override
+    public boolean hasDoctorVisitingHours(Long doctorId, LocalDateTime startDate, LocalDateTime endDate) {
+        return visitHoursRepository.existsByCancelledIsFalseAndDoctorIdAndStartDateIsBetweenOrEndDateIsBetween(
+                doctorId,
+                startDate,
+                endDate,
+                startDate,
+                endDate);
     }
 }

@@ -8,6 +8,11 @@
 
 <main role="main">
     <section class="container text-center">
+        <c:if test="${not empty errorDate}">
+            <div class="alert alert-primary container col-8 text-center" role="alert">
+                <spring:message code="${errorDate}"/>
+            </div>
+        </c:if>
         <form:form class="form-signin" name='addVisitHours' method="POST" action="/visitHours/add" modelAttribute="addVisitHours">
             <div class="form-label-group">
                 <form:input path="startDate" type="datetime-local" id="startDate" name="startDate" class="form-control" placeholder="" required=""
