@@ -5,6 +5,8 @@ import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.validator.constraints.Email;
 import pl.pisarkiewicz.Role.entity.Role;
+import pl.pisarkiewicz.Visit.entity.Visit;
+import pl.pisarkiewicz.VisitHours.entity.VisitHours;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -53,5 +55,11 @@ public class User {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>(0);
+
+    @OneToMany(mappedBy = "patient")
+    private Set<Visit> visit;
+
+    @OneToMany(mappedBy = "doctor")
+    private Set<VisitHours> visitHours;
 }
 

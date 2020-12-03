@@ -1,9 +1,9 @@
-package pl.pisarkiewicz.Role.controller;
+package pl.pisarkiewicz.Visit.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/roles")
-public class RoleController {
+@RequestMapping("/visit")
+public class VisitController {
 }
