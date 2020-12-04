@@ -30,7 +30,7 @@
                     <c:if test="${user.enabled && !user.deleted}">
                         <td><spring:message code="userList.active.true"/></td>
                     </c:if>
-                    <c:if test="${user.enabled == false && user.deleted}">
+                    <c:if test="${user.enabled == false}">
                         <td><spring:message code="userList.active.not"/></td>
                     </c:if>
                     <td>

@@ -5,10 +5,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import pl.pisarkiewicz.Global.service.ReCaptchaService;
 import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.User.service.IUserService;
 import pl.pisarkiewicz.User.validator.UserValidator;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.text.DateFormat;
 import java.util.Date;
@@ -20,10 +22,12 @@ public class MainController {
 
     private final IUserService userService;
     private final UserValidator userValidator;
+    private final ReCaptchaService reCaptchaService;
 
-    public MainController(IUserService userService) {
+    public MainController(IUserService userService, ReCaptchaService reCaptchaService) {
         this.userService = userService;
         this.userValidator = new UserValidator(userService);
+        this.reCaptchaService = reCaptchaService;
     }
 
     @GetMapping
@@ -58,9 +62,11 @@ public class MainController {
     }
 
     @PostMapping("/register")
-    public String registerPost(@Valid @ModelAttribute("register") User user, BindingResult result) {
+    public String registerPost(@Valid @ModelAttribute("register") User user,
+                               BindingResult result,
+                               HttpServletRequest request) {
         userValidator.validate(user, result);
-        if (result.getErrorCount() == 0) {
+        if (result.getErrorCount() == 0 && reCaptchaService.verify(request.getParameter("g-recaptcha-response"))) {
             userService.addUser(user);
             return "redirect:/";
         }

@@ -105,8 +105,8 @@ public class UserService implements IUserService {
 
     @Override
     public void activateUser(String token) {
-        if(userRepository.findByActivationToken(token).isPresent()) {
-            User user = userRepository.findByActivationToken(token).get();
+        if(userRepository.findByActivationTokenAndDeletedIsFalse(token).isPresent()) {
+            User user = userRepository.findByActivationTokenAndDeletedIsFalse(token).get();
             user.setEnabled(true);
             userRepository.save(user);
         }
