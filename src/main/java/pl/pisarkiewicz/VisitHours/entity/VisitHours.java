@@ -39,9 +39,12 @@ public class VisitHours {
     @NotNull
     private Double visitCost;
 
+    @NotNull
+    private String description;
+
     private boolean cancelled = false;
 
-    @OneToMany(mappedBy = "visitHours")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "visitHours")
     private Set<Visit> visits;
 
     @ManyToOne

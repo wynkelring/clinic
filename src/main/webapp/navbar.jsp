@@ -15,8 +15,11 @@
 
         <div class="collapse navbar-collapse" id="navbar">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="<c:url value="/"/>"><spring:message code="menu.home"/> <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<c:url value="/visitHours"/>"><spring:message code="menu.visitsHours"/></a>
                 </li>
                 <sec:authorize access="!isAuthenticated()">
                     <li class="nav-item">

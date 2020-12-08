@@ -43,6 +43,12 @@
                 <form:label path="visitCost" for="visitCost"><spring:message code="visitHours.visitCost"/></form:label>
                 <form:errors path="visitCost"/>
             </div>
+            <div class="form-label-group">
+                <form:input path="description" type="text" id="description" name="description" class="form-control" placeholder="" required=""
+                            autofocus="" />
+                <form:label path="description" for="description"><spring:message code="visitHours.description"/></form:label>
+                <form:errors path="description"/>
+            </div>
             <sec:authorize access="!hasAnyRole('DOCTOR')">
                 <div class="form-label-group">
                     <form:select path="doctorId" id="doctorId" name="doctorId" class="form-control" placeholder="" required=""

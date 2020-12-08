@@ -22,7 +22,7 @@
                     <a class="nav-link" href="<c:url value="/visitHours/list/1"/>"><spring:message code="menu.visitsHours"/></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<c:url value="/"/>"><spring:message code="menu.visits"/></a>
+                    <a class="nav-link" href="<c:url value="/visits/list/1"/>"><spring:message code="menu.visits"/></a>
                 </li>
             </ul>
         </div>

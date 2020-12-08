@@ -51,9 +51,14 @@
         <put-attribute name="body" value="/myVisits.jsp" />
     </definition>
 
-    <definition name="visitsHours" extends="base.definition">
+    <definition name="visitHours" extends="base.definition">
         <put-attribute name="title" value="Hours of visits" />
-        <put-attribute name="body" value="/visitsHours.jsp" />
+        <put-attribute name="body" value="/visitHours.jsp" />
+    </definition>
+
+    <definition name="selectedVisitHours" extends="base.definition">
+        <put-attribute name="title" value="Hours of visits" />
+        <put-attribute name="body" value="/selectedVisitHours.jsp" />
     </definition>
 
     <definition name="accessDenied" extends="base.definition">
@@ -79,6 +84,11 @@
     <definition name="addVisitHours" extends="base.definition">
         <put-attribute name="title" value="Add Visit Hours" />
         <put-attribute name="body" value="/addVisitHours.jsp" />
+    </definition>
+
+    <definition name="visitList" extends="base.definition">
+        <put-attribute name="title" value="Visit List" />
+        <put-attribute name="body" value="/visitList.jsp" />
     </definition>
 
 </tiles-definitions>

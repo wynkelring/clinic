@@ -20,11 +20,11 @@ public class Visit {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private LocalDateTime startDate;
+    private Integer numberInQueue;
 
     private boolean cancelled;
 
-    private boolean ended;
+    private boolean approved;
 
     private String userDescription;
 

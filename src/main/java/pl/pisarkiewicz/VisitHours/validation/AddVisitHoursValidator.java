@@ -20,6 +20,7 @@ public class AddVisitHoursValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "visitLength", "error.field.required");
         ValidationUtils.rejectIfEmpty(errors, "visitsCount", "error.field.required");
         ValidationUtils.rejectIfEmpty(errors, "visitCost", "error.field.required");
+        ValidationUtils.rejectIfEmpty(errors, "description", "error.field.required");
 
         if (errors.getErrorCount() == 0) {
             if (((VisitHoursDTO) o).getStartDate().isBefore(LocalDateTime.now())) {

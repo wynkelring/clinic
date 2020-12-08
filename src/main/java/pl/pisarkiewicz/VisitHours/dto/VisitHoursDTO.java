@@ -23,6 +23,7 @@ public class VisitHoursDTO {
     private Integer visitsCount;
     private Integer visitLength;
     private Double visitCost;
+    private String description;
     private boolean cancelled = false;
     private Long doctorId;
 }

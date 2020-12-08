@@ -1,5 +1,6 @@
 package pl.pisarkiewicz.Global.controller;
 
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -42,6 +43,7 @@ public class MainController {
         return "hello";
     }
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping("/login")
     public String login(@RequestParam(value = "error", required = false) String error,
                         @RequestParam(value = "logout", required = false) String logout,
@@ -55,12 +57,13 @@ public class MainController {
         return "login";
     }
 
-
+    @PreAuthorize("isAnonymous()")
     @GetMapping("/register")
     public ModelAndView register() {
         return new ModelAndView("register", "register", new User());
     }
 
+    @PreAuthorize("isAnonymous()")
     @PostMapping("/register")
     public String registerPost(@Valid @ModelAttribute("register") User user,
                                BindingResult result,
@@ -73,6 +76,7 @@ public class MainController {
         return "register";
     }
 
+    @PreAuthorize("isAnonymous()")
     @RequestMapping("/activateAccount")
     public String activateAccount(@RequestParam(name = "token") String token) {
         userService.activateUser(token);
