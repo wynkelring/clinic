@@ -12,10 +12,7 @@ import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.User.repository.UserRepository;
 
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class UserService implements IUserService {
@@ -56,7 +53,7 @@ public class UserService implements IUserService {
     public void addUser(User user) {
         user.getRoles().add(roleService.getByRoleName("ROLE_PATIENT"));
         user.setPassword(hashPassword(user.getPassword()));
-        user.setActivationToken(createVerificationToken(user));
+        user.setActivationToken(createVerificationToken());
         userRepository.save(user);
         /*emailService.sendEmail(
                 user.getEmail(),
@@ -122,8 +119,7 @@ public class UserService implements IUserService {
         return passwordEncoder.encode(password);
     }
 
-    private String createVerificationToken(User user) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        return passwordEncoder.encode("s@lty" + user.getEmail() + LocalDate.now());
+    private String createVerificationToken() {
+        return UUID.randomUUID().toString();
     }
 }

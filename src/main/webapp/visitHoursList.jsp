@@ -34,7 +34,7 @@
                     <td>${visitHours.visitCost}</td>
                     <td>
                         <form:form class="form-signin" name='deleteUser' method="POST" action="/visitHours/cancel/${visitHours.id}">
-                            <button class="btn btn-danger btn-block" type="submit"><spring:message code="visitHours.cancel"/></button>
+                            <button class="btn btn-danger btn-block m-0" type="submit"><spring:message code="visitHours.cancel"/></button>
                         </form:form>
                     </td>
                 </tr>

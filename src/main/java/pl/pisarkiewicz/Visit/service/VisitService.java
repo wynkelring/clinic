@@ -28,7 +28,8 @@ public class VisitService implements IVisitService {
     @Override
     public boolean addVisit(User user, Long visitHoursId, Integer numberInQueue) {
         VisitHours visitHours = visitHoursService.getSingleVisitHours(visitHoursId);
-        if (isBookingAvailable(visitHoursId, numberInQueue) && !visitHours.getDoctor().getId().equals(user.getId())) {
+        if (isBookingAvailable(visitHoursId, numberInQueue, user.getId()) &&
+                !visitHours.getDoctor().getId().equals(user.getId())) {
             Visit visit = new Visit();
             visit.setNumberInQueue(numberInQueue);
             visit.setPatient(user);
@@ -45,12 +46,13 @@ public class VisitService implements IVisitService {
     }
 
     @Override
-    public boolean isBookingAvailable(Long visitHoursId, Integer numberInQueue) {
+    public boolean isBookingAvailable(Long visitHoursId, Integer numberInQueue, Long userId) {
         VisitHours visitHours = visitHoursService.getSingleVisitHours(visitHoursId);
         if (visitHours != null) {
             LocalDateTime visitDate = visitHours.getStartDate().plusMinutes(visitHours.getVisitLength() * (numberInQueue - 1));
             return (!visitRepository.existsByCancelledIsFalseAndVisitHoursIdAndNumberInQueue(visitHoursId, numberInQueue) &&
-                    visitDate.isAfter(LocalDateTime.now()));
+                    visitDate.isAfter(LocalDateTime.now()) &&
+                    !visitRepository.existsByCancelledIsFalseAndVisitHoursIdAndPatientId(visitHoursId, userId));
         }
         return false;
     }
@@ -66,6 +68,11 @@ public class VisitService implements IVisitService {
     }
 
     @Override
+    public Page<Visit> getVisitsPageForUser(Long userId, Pageable pageable) {
+        return visitRepository.findAllByPatientIdOrderByVisitHoursStartDate(userId, pageable);
+    }
+
+    @Override
     public void cancelVisitForAdmin(Long visitId) {
         Optional<Visit> optVisit = visitRepository.findById(visitId);
         optVisit.ifPresent(visit -> {
@@ -77,6 +84,15 @@ public class VisitService implements IVisitService {
     @Override
     public void cancelVisitForDoctor(Long visitId, Long doctorId) {
         Optional<Visit> optVisit = visitRepository.findByIdAndVisitHoursDoctorIdAndCancelledIsFalse(visitId, doctorId);
+        optVisit.ifPresent(visit -> {
+            visit.setCancelled(true);
+            visitRepository.save(visit);
+        });
+    }
+
+    @Override
+    public void cancelVisitForPatient(Long visitId, Long patientId) {
+        Optional<Visit> optVisit = visitRepository.findByIdAndPatientIdAndCancelledIsFalse(visitId, patientId);
         optVisit.ifPresent(visit -> {
             visit.setCancelled(true);
             visitRepository.save(visit);

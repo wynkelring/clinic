@@ -63,10 +63,10 @@ public class VisitHoursController {
 
     @GetMapping("/{id}")
     public String getVisitHour(@PathVariable Long id,
-                               @RequestParam(value = "alreadyBooked", required = false) String alreadyBooked,
+                               @RequestParam(value = "notAvailable", required = false) String notAvailable,
                                Model model) {
-        if(alreadyBooked != null) {
-            model.addAttribute("alreadyBooked", "visitHours.error.alreadyBooked");
+        if(notAvailable != null) {
+            model.addAttribute("notAvailable", "visitHours.error.notAvailable");
         }
         VisitHours visitHours = visitHoursService.getSingleVisitHours(id);
         if (visitHours != null && visitHours.getEndDate().isAfter(LocalDateTime.now())) {
@@ -76,7 +76,7 @@ public class VisitHoursController {
                 hoursArray.add(visitHours.getStartDate().plusMinutes(i * visitHours.getVisitLength()).toString());
                 hoursArray.add(visitHours.getStartDate().plusMinutes((i+1) * visitHours.getVisitLength()).toString());
                 hoursArray.add(String.valueOf(i + 1));
-                hoursArray.add(String.valueOf(visitService.isBookingAvailable(id, i + 1)));
+                hoursArray.add(String.valueOf(visitService.isBookingAvailable(id, i + 1, null)));
                 hours.add(hoursArray);
             }
             model.addAttribute("hourList", hours);

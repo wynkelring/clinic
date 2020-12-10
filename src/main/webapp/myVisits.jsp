@@ -12,16 +12,14 @@
             <thead>
             <tr>
                 <th scope="col"><spring:message code="visit.doctor"/></th>
-                <th scope="col"><spring:message code="visit.patient"/></th>
                 <th scope="col"><spring:message code="visit.visitDate"/></th>
-                <th scope="col"><spring:message code="visit.manage"/></th>
+                <th scope="col"><spring:message code="visit.status"/></th>
             </tr>
             </thead>
             <tbody>
             <c:forEach items="${visitList}" var="visit">
                 <tr>
                     <td>${visit.visitHours.doctor.firstName} ${visit.visitHours.doctor.lastName}</td>
-                    <td>${visit.patient.firstName} ${visit.patient.lastName}</td>
                     <td>${visit.visitHours.startDate} - ${visit.numberInQueue}</td>
                     <td>
                         <c:if test="${visit.cancelled}">
@@ -31,12 +29,14 @@
                             <spring:message code="visit.approved"/>
                         </c:if>
                         <c:if test="${!visit.cancelled && !visit.approved}">
-                            <form:form class="form-signin" name='approve' method="POST" action="/visits/approve/${visit.id}">
-                                <button class="btn btn-primary btn-block m-0" type="submit"><spring:message code="visit.approve"/></button>
-                            </form:form>
-                            <form:form class="form-signin" name='cancel' method="POST" action="/visits/cancel/${visit.id}">
-                                <button class="btn btn-danger btn-block m-0" type="submit"><spring:message code="visit.cancel"/></button>
-                            </form:form>
+                            <c:if test="${ldtNow < visit.getVisitHours().getStartDate()}">
+                                <form:form class="form-signin" name='cancel' method="POST" action="/visits/cancel/${visit.id}">
+                                    <button class="btn btn-danger btn-block m-0" type="submit"><spring:message code="visit.cancel"/></button>
+                                </form:form>
+                            </c:if>
+                            <c:if test="${ldtNow >= visit.getVisitHours().getStartDate()}">
+                                <spring:message code="visit.pending"/>
+                            </c:if>
                         </c:if>
                     </td>
                 </tr>

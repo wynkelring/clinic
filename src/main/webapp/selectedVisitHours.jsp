@@ -8,12 +8,12 @@
 
 <main role="main">
     <section class="container text-center">
-        <c:if test="${not empty alreadyBooked}">
+        <c:if test="${not empty notAvailable}">
             <div class="alert alert-primary container col-8 text-center" role="alert">
-                <spring:message code="${alreadyBooked}"/>
+                <spring:message code="${notAvailable}"/>
             </div>
         </c:if>
-        <spring:message code="visitHours.doctor"/>: ${visitHours.doctor.firstName}<br>
+        <spring:message code="visitHours.doctor"/>: ${visitHours.doctor.firstName} ${visitHours.doctor.lastName}<br>
         <spring:message code="visitHours.description"/>: ${visitHours.description}<br>
         <spring:message code="visitHours.visitCost"/>: ${visitHours.visitCost} zł
         <c:if test="${not empty hourList}">

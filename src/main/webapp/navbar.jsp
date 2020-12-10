@@ -35,7 +35,7 @@
                            aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}</a>
                         <div class="dropdown-menu" aria-labelledby="profileDropdown">
                             <a class="dropdown-item" href="<c:url value="/users/editProfile"/>">My profile</a>
-                            <a class="dropdown-item" href="<c:url value="/myVisits"/>">My visits</a>
+                            <a class="dropdown-item" href="<c:url value="/visits/myVisits/1"/>">My visits</a>
                             <a class="dropdown-item" href="javascript:formSubmit()"><spring:message code="menu.logout"/></a>
                         </div>
                     </li>

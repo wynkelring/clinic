@@ -26,10 +26,6 @@ public class Visit {
 
     private boolean approved;
 
-    private String userDescription;
-
-    private String doctorDescription;
-
     @ManyToOne
     private VisitHours visitHours;
 

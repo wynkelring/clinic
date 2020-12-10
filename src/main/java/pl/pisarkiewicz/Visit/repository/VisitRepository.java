@@ -14,7 +14,10 @@ import java.util.Optional;
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
     Optional<Visit> findByIdAndVisitHoursDoctorIdAndCancelledIsFalse(Long id, Long doctorId);
+    Optional<Visit> findByIdAndPatientIdAndCancelledIsFalse(Long id, Long patientId);
     Page<Visit> findAllByOrderByVisitHoursStartDate(Pageable pageable);
     Page<Visit> findAllByVisitHoursDoctorIdOrderByVisitHoursStartDate(Long doctorId, Pageable pageable);
+    Page<Visit> findAllByPatientIdOrderByVisitHoursStartDate(Long patientId, Pageable pageable);
     boolean existsByCancelledIsFalseAndVisitHoursIdAndNumberInQueue(Long visitHoursId, Integer numberInQueue);
+    boolean existsByCancelledIsFalseAndVisitHoursIdAndPatientId(Long visitHoursId, Long patientId);
 }
