@@ -1,5 +1,7 @@
 package pl.pisarkiewicz.VisitHours.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -45,9 +47,11 @@ public class VisitHours {
     private boolean cancelled = false;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "visitHours")
+    @JsonManagedReference
     private Set<Visit> visits;
 
     @ManyToOne
+    @JsonBackReference
     private User doctor;
 }
 

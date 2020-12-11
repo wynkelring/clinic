@@ -1,5 +1,7 @@
 package pl.pisarkiewicz.User.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
@@ -24,6 +26,7 @@ public class User {
     private Long id;
 
     @NotNull
+    @JsonIgnore
     private String password;
 
     private boolean enabled;
@@ -49,15 +52,18 @@ public class User {
     private Long pesel;
 
     @NotNull
+    @JsonIgnore
     private String activationToken;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>(0);
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
+    @JsonManagedReference
     private Set<Visit> visit = new HashSet<>(0);
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
+    @JsonManagedReference
     private Set<VisitHours> visitHours = new HashSet<>(0);
 
     @Override

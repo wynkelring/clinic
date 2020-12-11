@@ -1,5 +1,6 @@
 package pl.pisarkiewicz.Visit.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -27,9 +28,11 @@ public class Visit {
     private boolean approved;
 
     @ManyToOne
+    @JsonBackReference
     private VisitHours visitHours;
 
     @ManyToOne
+    @JsonBackReference
     private User patient;
 }
 
