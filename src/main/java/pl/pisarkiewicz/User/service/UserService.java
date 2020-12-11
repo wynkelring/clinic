@@ -1,5 +1,7 @@
 package pl.pisarkiewicz.User.service;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,7 +13,6 @@ import pl.pisarkiewicz.User.dto.UserEditDTO;
 import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.User.repository.UserRepository;
 
-import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -20,11 +21,13 @@ public class UserService implements IUserService {
     private final UserRepository userRepository;
     private final RoleService roleService;
     private final EmailService emailService;
+    private final MessageSource messageSource;
 
-    public UserService(UserRepository userRepository, RoleService roleService, EmailService emailService) {
+    public UserService(UserRepository userRepository, RoleService roleService, EmailService emailService, MessageSource messageSource) {
         this.userRepository = userRepository;
         this.roleService = roleService;
         this.emailService = emailService;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -55,12 +58,11 @@ public class UserService implements IUserService {
         user.setPassword(hashPassword(user.getPassword()));
         user.setActivationToken(createVerificationToken());
         userRepository.save(user);
-        /*emailService.sendEmail(
-                user.getEmail(),
-                "Dziękujemy za rejestrację",
-                "Witaj na naszej stronie - aktywuj swoje konto <br>" +
-                        "http://localhost:8080/activateAccount?token=" + user.getActivationToken()
-        );*/
+        emailService.sendEmail(user.getEmail(),
+                messageSource.getMessage("email.title.register", null, LocaleContextHolder.getLocale()),
+                messageSource.getMessage("email.content.register", null, LocaleContextHolder.getLocale()) +
+                        "\n" +
+                        "http://localhost:8080/activateAccount?token=" + user.getActivationToken());
     }
 
     @Override
@@ -102,7 +104,7 @@ public class UserService implements IUserService {
 
     @Override
     public void activateUser(String token) {
-        if(userRepository.findByActivationTokenAndDeletedIsFalse(token).isPresent()) {
+        if (userRepository.findByActivationTokenAndDeletedIsFalse(token).isPresent()) {
             User user = userRepository.findByActivationTokenAndDeletedIsFalse(token).get();
             user.setEnabled(true);
             userRepository.save(user);

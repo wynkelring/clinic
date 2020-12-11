@@ -111,7 +111,7 @@ public class VisitController {
         boolean hasUserRoleAdmin = authentication.getAuthorities().stream()
                 .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
         boolean hasUserRoleDoctor = authentication.getAuthorities().stream()
-                .anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
+                .anyMatch(r -> r.getAuthority().equals("ROLE_DOCTOR"));
         User princ = userService.getUserByEmail(principal.getName());
         if (hasUserRoleAdmin) {
             visitService.cancelVisitForAdmin(id);

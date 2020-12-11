@@ -12,9 +12,8 @@ import org.springframework.web.servlet.ModelAndView;
 import pl.pisarkiewicz.Role.repository.RoleRepository;
 import pl.pisarkiewicz.User.dto.UserEditDTO;
 import pl.pisarkiewicz.User.entity.User;
-import pl.pisarkiewicz.User.service.IUserService;
+import pl.pisarkiewicz.User.service.UserService;
 import pl.pisarkiewicz.User.validator.UserEditValidator;
-import pl.pisarkiewicz.User.validator.UserValidator;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -23,14 +22,12 @@ import java.security.Principal;
 @RequestMapping("/users")
 public class UserController {
 
-    private final IUserService userService;
-    private final UserValidator userValidator;
+    private final UserService userService;
     private final UserEditValidator userEditValidator;
     private final RoleRepository roleRepository;
 
-    public UserController(IUserService userService, RoleRepository roleRepository) {
+    public UserController(UserService userService, RoleRepository roleRepository) {
         this.userService = userService;
-        this.userValidator = new UserValidator(userService);
         this.roleRepository = roleRepository;
         this.userEditValidator = new UserEditValidator();
     }
@@ -38,8 +35,8 @@ public class UserController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/list/{id}")
     public String getUserList(Principal principal,
-                           @PathVariable Integer id,
-                           Model model) {
+                              @PathVariable Integer id,
+                              Model model) {
         User user = userService.getUserByEmail(principal.getName());
         Pageable pageable = PageRequest.of(id - 1, 1);
         Page<User> userPage = userService.getUsersWhereIdIsNot(user.getId(), pageable);
@@ -56,15 +53,15 @@ public class UserController {
                           @RequestParam(value = "success", required = false) String success,
                           @RequestParam(value = "deleted", required = false) String deleted,
                           Model model) {
-        if(success != null) {
+        if (success != null) {
             model.addAttribute("success", "editProfile.success");
         }
-        if(deleted != null) {
+        if (deleted != null) {
             model.addAttribute("deleted", "editProfile.deleted");
         }
         User princ = userService.getUserByEmail(principal.getName());
         User editedUser = userService.getUser(id);
-        if(princ.getId().equals(id) || editedUser == null) {
+        if (princ.getId().equals(id) || editedUser == null) {
             return "redirect:/users/list/1";
         }
         model.addAttribute("editUser", editedUser);
@@ -106,9 +103,9 @@ public class UserController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_PATIENT')")
     @GetMapping("/editProfile")
     public ModelAndView editProfile(Principal principal,
-                                 @RequestParam(value = "success", required = false) String success,
-                                 Model model) {
-        if(success != null) {
+                                    @RequestParam(value = "success", required = false) String success,
+                                    Model model) {
+        if (success != null) {
             model.addAttribute("success", "editProfile.success");
         }
         User user = userService.getUserByEmail(principal.getName());

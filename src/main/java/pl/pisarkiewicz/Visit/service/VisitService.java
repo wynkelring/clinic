@@ -1,5 +1,7 @@
 package pl.pisarkiewicz.Visit.service;
 
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,11 +20,13 @@ public class VisitService implements IVisitService {
     private final VisitHoursService visitHoursService;
     private final VisitRepository visitRepository;
     private final EmailService emailService;
+    private final MessageSource messageSource;
 
-    public VisitService(VisitHoursService visitHoursService, VisitRepository visitRepository, EmailService emailService) {
+    public VisitService(VisitHoursService visitHoursService, VisitRepository visitRepository, EmailService emailService, MessageSource messageSource) {
         this.visitHoursService = visitHoursService;
         this.visitRepository = visitRepository;
         this.emailService = emailService;
+        this.messageSource = messageSource;
     }
 
     @Override
@@ -40,11 +44,17 @@ public class VisitService implements IVisitService {
             visit.setPatient(user);
             visit.setVisitHours(visitHours);
             visitRepository.save(visit);
-            /*emailService.sendEmail(visit.getPatient().getEmail(),
-                        "Zarezerwowano wizytę",
-                        "Zarezerwowano wizytę u doktora " +
-                                visit.getVisitHours().getDoctor().getFirstName() + " " + visit.getVisitHours().getDoctor().getFirstName() +
-                                " w dniu " + visit.getVisitHours().getStartDate().plusMinutes(visit.getVisitHours().getVisitLength() * visit.getNumberInQueue()));*/
+            emailService.sendEmail(visit.getPatient().getEmail(),
+                    messageSource.getMessage("email.title.book", null, LocaleContextHolder.getLocale()),
+                    messageSource.getMessage("email.content.book", null, LocaleContextHolder.getLocale()) +
+                            "\n" +
+                            visit.getVisitHours().getDoctor().getFirstName() + " " + visit.getVisitHours().getDoctor().getFirstName() +
+                            "\n" +
+                            visit.getVisitHours().getStartDate().plusMinutes(visit.getVisitHours().getVisitLength() * visit.getNumberInQueue()) +
+                            "\n" +
+                            visit.getVisitHours().getDescription() +
+                            "\n\n" +
+                            "http://localhost:8080/visits/myVisits/1");
             return true;
         }
         return false;
@@ -83,6 +93,7 @@ public class VisitService implements IVisitService {
         optVisit.ifPresent(visit -> {
             visit.setCancelled(true);
             visitRepository.save(visit);
+            this.sendCancelledEmail(visit);
         });
     }
 
@@ -92,6 +103,7 @@ public class VisitService implements IVisitService {
         optVisit.ifPresent(visit -> {
             visit.setCancelled(true);
             visitRepository.save(visit);
+            this.sendCancelledEmail(visit);
         });
     }
 
@@ -101,6 +113,7 @@ public class VisitService implements IVisitService {
         optVisit.ifPresent(visit -> {
             visit.setCancelled(true);
             visitRepository.save(visit);
+            this.sendCancelledEmail(visit);
         });
     }
 
@@ -110,6 +123,7 @@ public class VisitService implements IVisitService {
         optVisit.ifPresent(visit -> {
             visit.setApproved(true);
             visitRepository.save(visit);
+            this.sendApprovedEmail(visit);
         });
     }
 
@@ -119,6 +133,33 @@ public class VisitService implements IVisitService {
         optVisit.ifPresent(visit -> {
             visit.setApproved(true);
             visitRepository.save(visit);
+            this.sendApprovedEmail(visit);
         });
+    }
+
+    private void sendCancelledEmail(Visit visit) {
+        emailService.sendEmail(visit.getPatient().getEmail(),
+                messageSource.getMessage("email.title.cancelled", null, LocaleContextHolder.getLocale()),
+                messageSource.getMessage("email.content.cancelled", null, LocaleContextHolder.getLocale()) +
+                        "\n" +
+                        visit.getVisitHours().getDoctor().getFirstName() + " " + visit.getVisitHours().getDoctor().getFirstName() +
+                        "\n" +
+                        visit.getVisitHours().getStartDate().plusMinutes(visit.getVisitHours().getVisitLength() * visit.getNumberInQueue()) +
+                        "\n" +
+                        visit.getVisitHours().getDescription());
+    }
+
+    private void sendApprovedEmail(Visit visit) {
+        emailService.sendEmail(visit.getPatient().getEmail(),
+                messageSource.getMessage("email.title.approved", null, LocaleContextHolder.getLocale()),
+                messageSource.getMessage("email.content.approved", null, LocaleContextHolder.getLocale()) +
+                        "\n" +
+                        visit.getVisitHours().getDoctor().getFirstName() + " " + visit.getVisitHours().getDoctor().getFirstName() +
+                        "\n" +
+                        visit.getVisitHours().getStartDate().plusMinutes(visit.getVisitHours().getVisitLength() * visit.getNumberInQueue()) +
+                        "\n" +
+                        visit.getVisitHours().getDescription() +
+                        "\n\n" +
+                        "http://localhost:8080/visits/invoice/" + visit.getId());
     }
 }
