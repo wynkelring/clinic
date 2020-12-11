@@ -13,6 +13,7 @@ import pl.pisarkiewicz.VisitHours.entity.VisitHours;
 import pl.pisarkiewicz.VisitHours.service.VisitHoursService;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -134,6 +135,16 @@ public class VisitService implements IVisitService {
             visit.setApproved(true);
             visitRepository.save(visit);
             this.sendApprovedEmail(visit);
+        });
+    }
+
+    @Override
+    public void approveVisitsOnEndOfMonth(LocalDateTime now) {
+        List<Visit> visits = visitRepository.findAllByCancelledIsFalseAndApprovedIsFalseAndVisitHoursEndDateBefore(LocalDateTime.now());
+        visits.forEach(visit -> {
+            visit.setApproved(true);
+            visitRepository.save(visit);
+            System.out.println(visit.getId() + " APPROVED");
         });
     }
 

@@ -5,6 +5,8 @@ import org.springframework.data.domain.Pageable;
 import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.Visit.entity.Visit;
 
+import java.time.LocalDateTime;
+
 public interface IVisitService {
     Visit getVisit(Long id);
     boolean addVisit(User user, Long visitHoursId, Integer numberInQueue);
@@ -17,4 +19,5 @@ public interface IVisitService {
     void cancelVisitForPatient(Long visitId, Long patientId);
     void approveVisitForAdmin(Long visitId);
     void approveVisitForDoctor(Long visitId, Long doctorId);
+    void approveVisitsOnEndOfMonth(LocalDateTime now);
 }
