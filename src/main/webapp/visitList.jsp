@@ -28,7 +28,7 @@
                             <spring:message code="visit.cancelled"/>
                         </c:if>
                         <c:if test="${visit.approved}">
-                            <spring:message code="visit.approved"/>
+                            <a class="alert-link" href="<c:url value="/visits/invoice/${visit.id}"/>"><spring:message code="visit.approved"/></a>
                         </c:if>
                         <c:if test="${!visit.cancelled && !visit.approved}">
                             <form:form class="form-signin" name='approve' method="POST" action="/visits/approve/${visit.id}">

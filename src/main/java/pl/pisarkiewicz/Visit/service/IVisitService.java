@@ -6,6 +6,7 @@ import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.Visit.entity.Visit;
 
 public interface IVisitService {
+    Visit getVisit(Long id);
     boolean addVisit(User user, Long visitHoursId, Integer numberInQueue);
     boolean isBookingAvailable(Long visitHoursId, Integer numberInQueue, Long userId);
     Page<Visit> getVisitsPageForAdmin(Pageable pageable);

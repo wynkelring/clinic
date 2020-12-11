@@ -13,11 +13,10 @@ import java.io.StringReader;
 import java.net.URL;
 
 @Service
-public class ReCaptchaService implements IReCaptchaService {
+public class ReCaptchaService {
     private static final String URL = "https://www.google.com/recaptcha/api/siteverify";
     private static final String GOOGLE_KEY = "6LcCUfkZAAAAAEMfUcGEmiQSqYvjzwiyUp3mPtof";
 
-    @Override
     public boolean verify(String captcha) {
         if (captcha == null || "".equals(captcha)) return false;
         try {

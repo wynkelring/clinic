@@ -26,6 +26,11 @@ public class VisitService implements IVisitService {
     }
 
     @Override
+    public Visit getVisit(Long id) {
+        return visitRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public boolean addVisit(User user, Long visitHoursId, Integer numberInQueue) {
         VisitHours visitHours = visitHoursService.getSingleVisitHours(visitHoursId);
         if (isBookingAvailable(visitHoursId, numberInQueue, user.getId()) &&

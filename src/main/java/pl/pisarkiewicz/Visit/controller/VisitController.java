@@ -12,11 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import pl.pisarkiewicz.Global.service.PdfService;
 import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.User.service.UserService;
 import pl.pisarkiewicz.Visit.entity.Visit;
 import pl.pisarkiewicz.Visit.service.VisitService;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.security.Principal;
 import java.time.LocalDateTime;
 
@@ -25,10 +28,30 @@ import java.time.LocalDateTime;
 public class VisitController {
     private final UserService userService;
     private final VisitService visitService;
+    private final PdfService pdfService;
 
-    public VisitController(UserService userService, VisitService visitService) {
+    public VisitController(UserService userService, VisitService visitService, PdfService pdfService) {
         this.userService = userService;
         this.visitService = visitService;
+        this.pdfService = pdfService;
+    }
+
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR', 'ROLE_PATIENT')")
+    @GetMapping("/invoice/{id}")
+    public void getInvoice(Principal principal,
+                           @PathVariable Long id,
+                           HttpServletResponse response) throws IOException {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User princ = userService.getUserByEmail(principal.getName());
+        Visit visit = visitService.getVisit(id);
+        if (visit != null && visit.isApproved() &&
+                (visit.getPatient().getId().equals(princ.getId()) ||
+                        visit.getVisitHours().getDoctor().getId().equals(princ.getId()) ||
+                        authentication.getAuthorities().stream().anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN")))) {
+            pdfService.generateInvoice(visit, response);
+        } else {
+            response.sendRedirect("/visits/myVisits/1");
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_PATIENT')")
