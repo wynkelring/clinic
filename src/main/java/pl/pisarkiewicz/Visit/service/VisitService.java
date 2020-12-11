@@ -144,6 +144,7 @@ public class VisitService implements IVisitService {
         visits.forEach(visit -> {
             visit.setApproved(true);
             visitRepository.save(visit);
+            this.sendApprovedEmail(visit);
             System.out.println(visit.getId() + " APPROVED");
         });
     }

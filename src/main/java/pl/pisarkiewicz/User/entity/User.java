@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Email;
+import pl.pisarkiewicz.ActivationToken.entity.ActivationToken;
 import pl.pisarkiewicz.Role.entity.Role;
 import pl.pisarkiewicz.Visit.entity.Visit;
 import pl.pisarkiewicz.VisitHours.entity.VisitHours;
@@ -51,9 +52,9 @@ public class User {
     @NotNull
     private Long pesel;
 
-    @NotNull
+    @OneToOne
     @JsonIgnore
-    private String activationToken;
+    private ActivationToken activationToken;
 
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>(0);
