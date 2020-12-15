@@ -78,7 +78,6 @@ public class UserService implements IUserService {
         user.setLastName(euser.getLastName());
         user.setTelephone(euser.getTelephone());
         user.setPesel(euser.getPesel());
-        System.out.println(euser.getRoles());
         if (!euser.getRoles().isEmpty()) {
             user.setRoles(roleService.convertStringsToRoles(euser.getRoles()));
         } else {

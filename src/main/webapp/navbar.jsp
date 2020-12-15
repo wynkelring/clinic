@@ -1,9 +1,10 @@
-<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <nav class="navbar navbar-expand-lg navbar-dark" style="background: #3b5998">
     <div class="container">
@@ -34,8 +35,8 @@
                         <a class="nav-link dropdown-toggle text-uppercase" href="#" id="profileDropdown" data-toggle="dropdown"
                            aria-haspopup="true" aria-expanded="false">${pageContext.request.userPrincipal.name}</a>
                         <div class="dropdown-menu" aria-labelledby="profileDropdown">
-                            <a class="dropdown-item" href="<c:url value="/users/editProfile"/>">My profile</a>
-                            <a class="dropdown-item" href="<c:url value="/visits/myVisits/1"/>">My visits</a>
+                            <a class="dropdown-item" href="<c:url value="/users/editProfile"/>"><spring:message code="menu.myProfile"/></a>
+                            <a class="dropdown-item" href="<c:url value="/visits/myVisits/1"/>"><spring:message code="menu.myVisits"/></a>
                             <a class="dropdown-item" href="javascript:formSubmit()"><spring:message code="menu.logout"/></a>
                         </div>
                     </li>
