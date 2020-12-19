@@ -41,8 +41,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.addFilterBefore(filter, CsrfFilter.class);
 
         http.authorizeRequests()
-                .antMatchers("/users/addUser").access("hasRole('ADMIN')")
                 .antMatchers("/register").access("isAnonymous()")
+                .antMatchers("/login").access("isAnonymous()")
                 .and().formLogin().loginPage("/login").permitAll()
                 .usernameParameter("login").passwordParameter("password")
                 .failureForwardUrl("/login.html?error")
