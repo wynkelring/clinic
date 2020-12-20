@@ -120,7 +120,6 @@ public class UserController {
         userEditValidator.validate(user, result);
         User princ = userService.getUserByEmail(principal.getName());
         if (result.getErrorCount() == 0) {
-            princ.setFirstName(user.getFirstName());
             userService.editUserForUser(user, princ);
             return "redirect:/users/editProfile?success=true";
         }

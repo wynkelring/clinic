@@ -59,11 +59,11 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     private Set<Role> roles = new HashSet<>(0);
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
     @JsonManagedReference
     private Set<Visit> visit = new HashSet<>(0);
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
     @JsonManagedReference
     private Set<VisitHours> visitHours = new HashSet<>(0);
 

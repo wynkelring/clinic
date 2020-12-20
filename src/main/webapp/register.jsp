@@ -48,9 +48,6 @@
             <form:label path="password" for="password"><spring:message code="register.password"/></form:label>
             <form:errors path="password"/>
         </div>
-        <div class="form-label-group">
-            <form:input path="activationToken" type="hidden" id="activationToken" name="activationToken" class="form-control" value="true" />
-        </div>
         <div class="g-recaptcha" data-sitekey="6LcCUfkZAAAAANCujmy6ljsi1ihxHpgYNiGU98QD"></div>
         <button class="btn btn-lg btn-primary btn-block" type="submit"><spring:message code="register.title"/></button>
 	</form:form>

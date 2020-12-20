@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import pl.pisarkiewicz.Global.service.ReCaptchaService;
 import pl.pisarkiewicz.User.entity.User;
-import pl.pisarkiewicz.User.service.IUserService;
+import pl.pisarkiewicz.User.service.UserService;
 import pl.pisarkiewicz.User.validator.UserValidator;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,11 +21,11 @@ import java.util.Locale;
 @RequestMapping(value = "/")
 public class MainController {
 
-    private final IUserService userService;
+    private final UserService userService;
     private final UserValidator userValidator;
     private final ReCaptchaService reCaptchaService;
 
-    public MainController(IUserService userService, ReCaptchaService reCaptchaService) {
+    public MainController(UserService userService, ReCaptchaService reCaptchaService) {
         this.userService = userService;
         this.userValidator = new UserValidator(userService);
         this.reCaptchaService = reCaptchaService;
@@ -56,13 +56,11 @@ public class MainController {
         return "login";
     }
 
-    @PreAuthorize("isAnonymous()")
     @GetMapping("/register")
     public ModelAndView register() {
         return new ModelAndView("register", "register", new User());
     }
 
-    @PreAuthorize("isAnonymous()")
     @PostMapping("/register")
     public String registerPost(@Valid @ModelAttribute("register") User user,
                                BindingResult result,
