@@ -1,4 +1,4 @@
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -28,14 +28,19 @@
                             <spring:message code="visit.cancelled"/>
                         </c:if>
                         <c:if test="${visit.approved}">
-                            <a class="alert-link" href="<c:url value="/visits/invoice/${visit.id}"/>"><spring:message code="visit.approved"/></a>
+                            <a class="alert-link" href="<c:url value="/visits/invoice/${visit.id}"/>"><spring:message
+                                    code="visit.approved"/></a>
                         </c:if>
                         <c:if test="${!visit.cancelled && !visit.approved}">
-                            <form:form class="form-signin" name='approve' method="POST" action="/visits/approve/${visit.id}">
-                                <button class="btn btn-primary btn-block m-0" type="submit"><spring:message code="visit.approve"/></button>
+                            <form:form class="form-signin" name='approve' method="POST"
+                                       action="/visits/approve/${visit.id}">
+                                <button class="btn btn-primary btn-block m-0" type="submit"><spring:message
+                                        code="visit.approve"/></button>
                             </form:form>
-                            <form:form class="form-signin" name='cancel' method="POST" action="/visits/cancel/${visit.id}">
-                                <button class="btn btn-danger btn-block m-0" type="submit"><spring:message code="visit.cancel"/></button>
+                            <form:form class="form-signin" name='cancel' method="POST"
+                                       action="/visits/cancel/${visit.id}">
+                                <button class="btn btn-danger btn-block m-0" type="submit"><spring:message
+                                        code="visit.cancel"/></button>
                             </form:form>
                         </c:if>
                     </td>
@@ -47,7 +52,8 @@
             <ul class="pagination justify-content-center">
                 <li class="page-item <c:if test="${currentPage <= 1}">disabled</c:if>">
                     <c:if test="${currentPage > 1}">
-                        <a class="page-link" href="/visits/list/${id - 1}"><spring:message code="pagination.previous"/></a>
+                        <a class="page-link" href="/visits/list/${id - 1}"><spring:message
+                                code="pagination.previous"/></a>
                     </c:if>
                     <c:if test="${currentPage <= 1}">
                         <a class="page-link" href="/visits/list/1"><spring:message code="pagination.previous"/></a>
@@ -59,7 +65,8 @@
                         <a class="page-link" href="/visits/list/${id + 1}"><spring:message code="pagination.next"/></a>
                     </c:if>
                     <c:if test="${totalPages <= currentPage}">
-                        <a class="page-link" href="/visits/list/${currentPage}"><spring:message code="pagination.next"/></a>
+                        <a class="page-link" href="/visits/list/${currentPage}"><spring:message
+                                code="pagination.next"/></a>
                     </c:if>
                 </li>
             </ul>

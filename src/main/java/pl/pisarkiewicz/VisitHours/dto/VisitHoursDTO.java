@@ -2,15 +2,9 @@ package pl.pisarkiewicz.VisitHours.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
-import pl.pisarkiewicz.User.entity.User;
-import pl.pisarkiewicz.Visit.entity.Visit;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Getter
 @Setter

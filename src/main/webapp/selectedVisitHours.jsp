@@ -1,4 +1,4 @@
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -22,7 +22,8 @@
                     ${hour[0]} - ${hour[1]}
                     <c:if test="${hour[3]}">
                         <sec:authorize access="hasRole('PATIENT')">
-                            <a href="/visits/book/${visitHours.id}/queue/${hour[2]}"><spring:message code="visitHours.book"/></a>
+                            <a href="/visits/book/${visitHours.id}/queue/${hour[2]}"><spring:message
+                                    code="visitHours.book"/></a>
                         </sec:authorize>
                     </c:if>
                     <br>

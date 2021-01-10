@@ -2,7 +2,6 @@ package pl.pisarkiewicz.User.dto;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.pisarkiewicz.Role.entity.Role;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -161,6 +161,11 @@
             <artifactId>jackson-dataformat-xml</artifactId>
             <version>2.9.8</version>
         </dependency>
+        <dependency>
+            <groupId>com.google.googlejavaformat</groupId>
+            <artifactId>google-java-format</artifactId>
+            <version>1.9</version>
+        </dependency>
     </dependencies>
 
 </project>

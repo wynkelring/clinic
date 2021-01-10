@@ -7,83 +7,83 @@
 <tiles-definitions>
     <definition name="base.definition"
                 template="/layout.jsp">
-        <put-attribute name="title" value="" />
-        <put-attribute name="navbar" value="/navbar.jsp" />
-        <put-attribute name="navbar-admin" value="/navbar-admin.jsp" />
-        <put-attribute name="header" value="" />
-        <put-attribute name="body" value="" />
-        <put-attribute name="footer" value="/footer.jsp" />
+        <put-attribute name="title" value=""/>
+        <put-attribute name="navbar" value="/navbar.jsp"/>
+        <put-attribute name="navbar-admin" value="/navbar-admin.jsp"/>
+        <put-attribute name="header" value=""/>
+        <put-attribute name="body" value=""/>
+        <put-attribute name="footer" value="/footer.jsp"/>
     </definition>
 
     <definition name="hello" extends="base.definition">
-        <put-attribute name="title" value="page.hello" />
-        <put-attribute name="header" value="/header.jsp" />
-        <put-attribute name="body" value="/home.jsp" />
+        <put-attribute name="title" value="page.hello"/>
+        <put-attribute name="header" value="/header.jsp"/>
+        <put-attribute name="body" value="/home.jsp"/>
     </definition>
 
     <definition name="login" extends="base.definition">
-        <put-attribute name="title" value="page.login" />
-        <put-attribute name="body" value="/login.jsp" />
+        <put-attribute name="title" value="page.login"/>
+        <put-attribute name="body" value="/login.jsp"/>
     </definition>
 
     <definition name="register" extends="base.definition">
-        <put-attribute name="title" value="page.register" />
-        <put-attribute name="body" value="/register.jsp" />
+        <put-attribute name="title" value="page.register"/>
+        <put-attribute name="body" value="/register.jsp"/>
     </definition>
 
     <definition name="editProfile" extends="base.definition">
-        <put-attribute name="title" value="page.editProfile" />
-        <put-attribute name="body" value="/editProfile.jsp" />
+        <put-attribute name="title" value="page.editProfile"/>
+        <put-attribute name="body" value="/editProfile.jsp"/>
     </definition>
 
     <definition name="users" extends="base.definition">
-        <put-attribute name="title" value="page.users" />
-        <put-attribute name="body" value="/users.jsp" />
+        <put-attribute name="title" value="page.users"/>
+        <put-attribute name="body" value="/users.jsp"/>
     </definition>
 
     <definition name="myVisits" extends="base.definition">
-        <put-attribute name="title" value="page.myVisits" />
-        <put-attribute name="body" value="/myVisits.jsp" />
+        <put-attribute name="title" value="page.myVisits"/>
+        <put-attribute name="body" value="/myVisits.jsp"/>
     </definition>
 
     <definition name="visitHours" extends="base.definition">
-        <put-attribute name="title" value="page.visitHours" />
-        <put-attribute name="body" value="/visitHours.jsp" />
+        <put-attribute name="title" value="page.visitHours"/>
+        <put-attribute name="body" value="/visitHours.jsp"/>
     </definition>
 
     <definition name="selectedVisitHours" extends="base.definition">
-        <put-attribute name="title" value="page.selectedVisitHours" />
-        <put-attribute name="body" value="/selectedVisitHours.jsp" />
+        <put-attribute name="title" value="page.selectedVisitHours"/>
+        <put-attribute name="body" value="/selectedVisitHours.jsp"/>
     </definition>
 
     <definition name="accessDenied" extends="base.definition">
-        <put-attribute name="title" value="page.accessDenied" />
-        <put-attribute name="body" value="/accessDenied.jsp" />
+        <put-attribute name="title" value="page.accessDenied"/>
+        <put-attribute name="body" value="/accessDenied.jsp"/>
     </definition>
 
     <definition name="userList" extends="base.definition">
-        <put-attribute name="title" value="page.userList" />
-        <put-attribute name="body" value="/userList.jsp" />
+        <put-attribute name="title" value="page.userList"/>
+        <put-attribute name="body" value="/userList.jsp"/>
     </definition>
 
     <definition name="editUser" extends="base.definition">
-        <put-attribute name="title" value="page.editUser" />
-        <put-attribute name="body" value="/editUser.jsp" />
+        <put-attribute name="title" value="page.editUser"/>
+        <put-attribute name="body" value="/editUser.jsp"/>
     </definition>
 
     <definition name="visitHoursList" extends="base.definition">
-        <put-attribute name="title" value="page.visitHoursList" />
-        <put-attribute name="body" value="/visitHoursList.jsp" />
+        <put-attribute name="title" value="page.visitHoursList"/>
+        <put-attribute name="body" value="/visitHoursList.jsp"/>
     </definition>
 
     <definition name="addVisitHours" extends="base.definition">
-        <put-attribute name="title" value="page.addVisitHours" />
-        <put-attribute name="body" value="/addVisitHours.jsp" />
+        <put-attribute name="title" value="page.addVisitHours"/>
+        <put-attribute name="body" value="/addVisitHours.jsp"/>
     </definition>
 
     <definition name="visitList" extends="base.definition">
-        <put-attribute name="title" value="page.visitList" />
-        <put-attribute name="body" value="/visitList.jsp" />
+        <put-attribute name="title" value="page.visitList"/>
+        <put-attribute name="body" value="/visitList.jsp"/>
     </definition>
 
 </tiles-definitions>

@@ -8,7 +8,6 @@ import pl.pisarkiewicz.User.entity.User;
 import pl.pisarkiewicz.VisitHours.entity.VisitHours;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table

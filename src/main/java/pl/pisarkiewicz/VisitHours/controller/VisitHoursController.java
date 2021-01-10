@@ -43,7 +43,7 @@ public class VisitHoursController {
     @GetMapping()
     public String getVisitHours(Model model,
                                 @RequestParam(value = "notFound", required = false) String notFound) {
-        if(notFound != null) {
+        if (notFound != null) {
             model.addAttribute("notFound", "visitHours.error.notFound");
         }
         model.addAttribute("doctorsList", userService.getDoctorsList());
@@ -65,16 +65,16 @@ public class VisitHoursController {
     public String getVisitHour(@PathVariable Long id,
                                @RequestParam(value = "notAvailable", required = false) String notAvailable,
                                Model model) {
-        if(notAvailable != null) {
+        if (notAvailable != null) {
             model.addAttribute("notAvailable", "visitHours.error.notAvailable");
         }
         VisitHours visitHours = visitHoursService.getSingleVisitHours(id);
         if (visitHours != null && visitHours.getEndDate().isAfter(LocalDateTime.now())) {
             List<List<String>> hours = new ArrayList<>();
-            for(int i = 0; i < visitHours.getVisitsCount(); i++) {
+            for (int i = 0; i < visitHours.getVisitsCount(); i++) {
                 ArrayList<String> hoursArray = new ArrayList<>();
                 hoursArray.add(visitHours.getStartDate().plusMinutes(i * visitHours.getVisitLength()).toString());
-                hoursArray.add(visitHours.getStartDate().plusMinutes((i+1) * visitHours.getVisitLength()).toString());
+                hoursArray.add(visitHours.getStartDate().plusMinutes((i + 1) * visitHours.getVisitLength()).toString());
                 hoursArray.add(String.valueOf(i + 1));
                 hoursArray.add(String.valueOf(visitService.isBookingAvailable(id, i + 1, null)));
                 hours.add(hoursArray);
@@ -90,8 +90,8 @@ public class VisitHoursController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_DOCTOR')")
     @GetMapping("/list/{id}")
     public String getVisitHoursList(Principal principal,
-                              @PathVariable Integer id,
-                              Model model) {
+                                    @PathVariable Integer id,
+                                    Model model) {
         Pageable pageable = PageRequest.of(id - 1, 10);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean hasUserRoleAdmin = authentication.getAuthorities().stream()
@@ -113,7 +113,7 @@ public class VisitHoursController {
     @GetMapping("/add")
     public String addVisitHours(@RequestParam(value = "errorDate", required = false) String errorDate,
                                 Model model) {
-        if(errorDate != null) {
+        if (errorDate != null) {
             model.addAttribute("errorDate", "visitHours.error.startDate2");
         }
         model.addAttribute("doctorsList", userService.getDoctorsList());

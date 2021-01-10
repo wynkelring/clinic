@@ -38,11 +38,11 @@ public class PdfService {
 
             Paragraph patient = new Paragraph(user.getFirstName() + " " + user.getLastName());
             pdf.add(patient);
-            Paragraph patientPesel = new Paragraph("PESEL: " +user.getPesel());
+            Paragraph patientPesel = new Paragraph("PESEL: " + user.getPesel());
             pdf.add(patientPesel);
-            Paragraph patientEmail = new Paragraph("Email: " +user.getEmail());
+            Paragraph patientEmail = new Paragraph("Email: " + user.getEmail());
             pdf.add(patientEmail);
-            Paragraph patientPhone = new Paragraph("Phone number: " +user.getTelephone());
+            Paragraph patientPhone = new Paragraph("Phone number: " + user.getTelephone());
             pdf.add(patientPhone);
 
             pdf.add(new Paragraph(Chunk.NEWLINE));

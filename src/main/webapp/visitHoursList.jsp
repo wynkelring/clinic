@@ -1,4 +1,4 @@
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -33,8 +33,10 @@
                     <td>${visitHours.visitLength}</td>
                     <td>${visitHours.visitCost}</td>
                     <td>
-                        <form:form class="form-signin" name='deleteUser' method="POST" action="/visitHours/cancel/${visitHours.id}">
-                            <button class="btn btn-danger btn-block m-0" type="submit"><spring:message code="visitHours.cancel"/></button>
+                        <form:form class="form-signin" name='deleteUser' method="POST"
+                                   action="/visitHours/cancel/${visitHours.id}">
+                            <button class="btn btn-danger btn-block m-0" type="submit"><spring:message
+                                    code="visitHours.cancel"/></button>
                         </form:form>
                     </td>
                 </tr>
@@ -45,7 +47,8 @@
             <ul class="pagination justify-content-center">
                 <li class="page-item <c:if test="${currentPage <= 1}">disabled</c:if>">
                     <c:if test="${currentPage > 1}">
-                        <a class="page-link" href="/visitHours/list/${id - 1}"><spring:message code="pagination.previous"/></a>
+                        <a class="page-link" href="/visitHours/list/${id - 1}"><spring:message
+                                code="pagination.previous"/></a>
                     </c:if>
                     <c:if test="${currentPage <= 1}">
                         <a class="page-link" href="/visitHours/list/1"><spring:message code="pagination.previous"/></a>
@@ -54,10 +57,12 @@
                 <li class="page-item"><a class="page-link" href="#">${currentPage}</a></li>
                 <li class="page-item <c:if test="${totalPages <= currentPage}">disabled</c:if>">
                     <c:if test="${totalPages > currentPage}">
-                        <a class="page-link" href="/visitHours/list/${id + 1}"><spring:message code="pagination.next"/></a>
+                        <a class="page-link" href="/visitHours/list/${id + 1}"><spring:message
+                                code="pagination.next"/></a>
                     </c:if>
                     <c:if test="${totalPages <= currentPage}">
-                        <a class="page-link" href="/visitHours/list/${currentPage}"><spring:message code="pagination.next"/></a>
+                        <a class="page-link" href="/visitHours/list/${currentPage}"><spring:message
+                                code="pagination.next"/></a>
                     </c:if>
                 </li>
             </ul>

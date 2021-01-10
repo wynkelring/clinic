@@ -61,8 +61,8 @@ public class VisitHoursService implements IVisitHoursService {
                         "Anulowano wizytę",
                         "Wizyta u doktora " +
                                 visit.getVisitHours().getDoctor().getFirstName() + " " + visit.getVisitHours().getDoctor().getFirstName() +
-                        " w dniu " + visit.getVisitHours().getStartDate().plusMinutes(visit.getVisitHours().getVisitLength() * visit.getNumberInQueue()) +
-                        " została anulowana");
+                                " w dniu " + visit.getVisitHours().getStartDate().plusMinutes(visit.getVisitHours().getVisitLength() * visit.getNumberInQueue()) +
+                                " została anulowana");
             });
             visitHoursRepository.save(hours);
         });

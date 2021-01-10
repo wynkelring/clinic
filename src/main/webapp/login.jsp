@@ -1,4 +1,4 @@
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -23,13 +23,15 @@
         </div>
 
         <div class="form-label-group">
-            <input type="email" id="login" name="login" class="form-control" placeholder="<spring:message code="login.email"/>" required=""
+            <input type="email" id="login" name="login" class="form-control"
+                   placeholder="<spring:message code="login.email"/>" required=""
                    autofocus="">
             <label for="login"><spring:message code="login.email"/></label>
         </div>
 
         <div class="form-label-group">
-            <input type="password" id="password" name="password" class="form-control" placeholder="<spring:message code="login.password"/>"
+            <input type="password" id="password" name="password" class="form-control"
+                   placeholder="<spring:message code="login.password"/>"
                    required="">
             <label for="password"><spring:message code="login.password"/></label>
         </div>

@@ -42,7 +42,7 @@ public class ReCaptchaService {
             JsonObject jsonObject = jsonReader.readObject();
             jsonReader.close();
             return jsonObject.getBoolean("success");
-        } catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return false;
         }
