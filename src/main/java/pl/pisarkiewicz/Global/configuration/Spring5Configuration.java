@@ -80,8 +80,8 @@ public class Spring5Configuration implements WebMvcConfigurer {
         mailSender.setHost("smtp.gmail.com");
         mailSender.setPort(587);
 
-        mailSender.setUsername("v1nkesports@gmail.com");
-        mailSender.setPassword("");
+        mailSender.setUsername("kapj.iita@gmail.com");
+        mailSender.setPassword("Atii.jpak#");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
