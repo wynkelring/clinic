@@ -21,37 +21,30 @@ import java.util.Set;
 @ToString
 public class VisitHours {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime startDate;
+  @NotNull
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  private LocalDateTime startDate;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime endDate;
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  private LocalDateTime endDate;
 
-    @NotNull
-    private Integer visitsCount;
+  @NotNull private Integer visitsCount;
 
-    @NotNull
-    private Integer visitLength;
+  @NotNull private Integer visitLength;
 
-    @NotNull
-    private Double visitCost;
+  @NotNull private Double visitCost;
 
-    @NotNull
-    private String description;
+  @NotNull private String description;
 
-    private boolean cancelled = false;
+  private boolean cancelled = false;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "visitHours")
-    @JsonManagedReference
-    private Set<Visit> visits;
+  @OneToMany(fetch = FetchType.EAGER, mappedBy = "visitHours")
+  @JsonManagedReference
+  private Set<Visit> visits;
 
-    @ManyToOne
-    @JsonBackReference
-    private User doctor;
+  @ManyToOne @JsonBackReference private User doctor;
 }
-

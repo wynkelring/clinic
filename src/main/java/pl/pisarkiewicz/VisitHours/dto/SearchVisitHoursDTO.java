@@ -6,7 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SearchVisitHoursDTO {
-    private Long id;
-    private Long doctorId;
+  private Long id;
+  private Long doctorId;
 }
-

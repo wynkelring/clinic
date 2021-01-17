@@ -14,15 +14,15 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    boolean existsByEmail(String email);
+  boolean existsByEmail(String email);
 
-    Optional<User> findByIdAndIdIsNot(Long id, Long userId);
+  Optional<User> findByIdAndIdIsNot(Long id, Long userId);
 
-    Optional<User> findByEmail(String email);
+  Optional<User> findByEmail(String email);
 
-    Optional<User> findByActivationTokenTokenAndDeletedIsFalse(String token);
+  Optional<User> findByActivationTokenTokenAndDeletedIsFalse(String token);
 
-    Page<User> findAllByIdIsNot(Long id, Pageable pageable);
+  Page<User> findAllByIdIsNot(Long id, Pageable pageable);
 
-    List<User> findAllByRoles(Role role);
+  List<User> findAllByRoles(Role role);
 }

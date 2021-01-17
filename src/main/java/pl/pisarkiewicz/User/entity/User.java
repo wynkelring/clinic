@@ -22,54 +22,45 @@ import java.util.Set;
 @Setter
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotNull
-    @JsonIgnore
-    private String password;
+  @NotNull @JsonIgnore private String password;
 
-    private boolean enabled;
+  private boolean enabled;
 
-    private boolean deleted = false;
+  private boolean deleted = false;
 
-    @NotNull
-    @Size(min = 2, max = 30, message = "{error.field.size.regexp}")
-    private String firstName;
+  @NotNull
+  @Size(min = 2, max = 30, message = "{error.field.size.regexp}")
+  private String firstName;
 
-    @NotNull
-    @Size(min = 2, max = 30, message = "{error.field.size.regexp}")
-    private String lastName;
+  @NotNull
+  @Size(min = 2, max = 30, message = "{error.field.size.regexp}")
+  private String lastName;
 
-    @NotNull
-    @Email
-    private String email;
+  @NotNull @Email private String email;
 
-    @NotNull
-    private String telephone;
+  @NotNull private String telephone;
 
-    @NotNull
-    private Long pesel;
+  @NotNull private Long pesel;
 
-    @OneToOne
-    @JsonIgnore
-    private ActivationToken activationToken;
+  @OneToOne @JsonIgnore private ActivationToken activationToken;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles = new HashSet<>(0);
+  @ManyToMany(fetch = FetchType.EAGER)
+  private Set<Role> roles = new HashSet<>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
-    @JsonManagedReference
-    private Set<Visit> visit = new HashSet<>(0);
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "patient")
+  @JsonManagedReference
+  private Set<Visit> visit = new HashSet<>(0);
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
-    @JsonManagedReference
-    private Set<VisitHours> visitHours = new HashSet<>(0);
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "doctor")
+  @JsonManagedReference
+  private Set<VisitHours> visitHours = new HashSet<>(0);
 
-    @Override
-    public String toString() {
-        return firstName + " " + lastName;
-    }
+  @Override
+  public String toString() {
+    return firstName + " " + lastName;
+  }
 }
-

@@ -21,68 +21,71 @@ import java.util.Locale;
 @RequestMapping(value = "/")
 public class MainController {
 
-    private final UserService userService;
-    private final UserValidator userValidator;
-    private final ReCaptchaService reCaptchaService;
+  private final UserService userService;
+  private final UserValidator userValidator;
+  private final ReCaptchaService reCaptchaService;
 
-    public MainController(UserService userService, ReCaptchaService reCaptchaService) {
-        this.userService = userService;
-        this.userValidator = new UserValidator(userService);
-        this.reCaptchaService = reCaptchaService;
+  public MainController(UserService userService, ReCaptchaService reCaptchaService) {
+    this.userService = userService;
+    this.userValidator = new UserValidator(userService);
+    this.reCaptchaService = reCaptchaService;
+  }
+
+  @GetMapping
+  public String helloWorld(Locale locale, Model model) {
+
+    Date date = new Date();
+    DateFormat dateFormat =
+        DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+    String formattedDate = dateFormat.format(date);
+
+    model.addAttribute("serverTime", formattedDate);
+
+    return "hello";
+  }
+
+  @RequestMapping("/login")
+  public String login(
+      @RequestParam(value = "error", required = false) String error,
+      @RequestParam(value = "logout", required = false) String logout,
+      Model model) {
+    if (error != null) {
+      model.addAttribute("error", "login.error");
     }
-
-    @GetMapping
-    public String helloWorld(Locale locale, Model model) {
-
-        Date date = new Date();
-        DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
-        String formattedDate = dateFormat.format(date);
-
-        model.addAttribute("serverTime", formattedDate);
-
-        return "hello";
+    if (logout != null) {
+      model.addAttribute("msg", "login.logout");
     }
+    return "login";
+  }
 
-    @RequestMapping("/login")
-    public String login(@RequestParam(value = "error", required = false) String error,
-                        @RequestParam(value = "logout", required = false) String logout,
-                        Model model) {
-        if (error != null) {
-            model.addAttribute("error", "login.error");
-        }
-        if (logout != null) {
-            model.addAttribute("msg", "login.logout");
-        }
-        return "login";
-    }
+  @GetMapping("/register")
+  public ModelAndView register() {
+    return new ModelAndView("register", "register", new User());
+  }
 
-    @GetMapping("/register")
-    public ModelAndView register() {
-        return new ModelAndView("register", "register", new User());
+  @PostMapping("/register")
+  public String registerPost(
+      @Valid @ModelAttribute("register") User user,
+      BindingResult result,
+      HttpServletRequest request) {
+    userValidator.validate(user, result);
+    if (result.getErrorCount() == 0
+        && reCaptchaService.verify(request.getParameter("g-recaptcha-response"))) {
+      userService.addUser(user);
+      return "redirect:/";
     }
+    return "register";
+  }
 
-    @PostMapping("/register")
-    public String registerPost(@Valid @ModelAttribute("register") User user,
-                               BindingResult result,
-                               HttpServletRequest request) {
-        userValidator.validate(user, result);
-        if (result.getErrorCount() == 0 && reCaptchaService.verify(request.getParameter("g-recaptcha-response"))) {
-            userService.addUser(user);
-            return "redirect:/";
-        }
-        return "register";
-    }
+  @PreAuthorize("isAnonymous()")
+  @RequestMapping("/activateAccount")
+  public String activateAccount(@RequestParam(name = "token") String token) {
+    userService.activateUser(token);
+    return "login";
+  }
 
-    @PreAuthorize("isAnonymous()")
-    @RequestMapping("/activateAccount")
-    public String activateAccount(@RequestParam(name = "token") String token) {
-        userService.activateUser(token);
-        return "login";
-    }
-
-    @RequestMapping("/accessDenied")
-    public String accessDenied() {
-        return "accessDenied";
-    }
+  @RequestMapping("/accessDenied")
+  public String accessDenied() {
+    return "accessDenied";
+  }
 }
-

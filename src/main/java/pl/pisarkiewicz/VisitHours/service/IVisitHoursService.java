@@ -9,19 +9,19 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IVisitHoursService {
-    VisitHours getSingleVisitHours(Long id);
+  VisitHours getSingleVisitHours(Long id);
 
-    void addVisitHours(VisitHoursDTO visitHours);
+  void addVisitHours(VisitHoursDTO visitHours);
 
-    void cancelVisitHoursForAdmin(Long id);
+  void cancelVisitHoursForAdmin(Long id);
 
-    void cancelVisitHoursForDoctor(Long doctorId, Long id);
+  void cancelVisitHoursForDoctor(Long doctorId, Long id);
 
-    boolean hasDoctorVisitingHours(Long doctorId, LocalDateTime startDate, LocalDateTime endDate);
+  boolean hasDoctorVisitingHours(Long doctorId, LocalDateTime startDate, LocalDateTime endDate);
 
-    Page<VisitHours> getVisitHoursNotCancelledForAdmin(Pageable pageable);
+  Page<VisitHours> getVisitHoursNotCancelledForAdmin(Pageable pageable);
 
-    Page<VisitHours> getVisitHoursNotCancelledForDoctor(Long doctorId, Pageable pageable);
+  Page<VisitHours> getVisitHoursNotCancelledForDoctor(Long doctorId, Pageable pageable);
 
-    List<VisitHours> getVisitHoursNotCancelledByDoctor(Long doctorId);
+  List<VisitHours> getVisitHoursNotCancelledByDoctor(Long doctorId);
 }

@@ -5,5 +5,4 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/roles")
-public class RoleController {
-}
+public class RoleController {}

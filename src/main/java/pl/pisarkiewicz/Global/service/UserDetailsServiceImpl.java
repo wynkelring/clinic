@@ -18,32 +18,30 @@ import java.util.Set;
 @Service("myAppUserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final IUserService userService;
+  private final IUserService userService;
 
-    public UserDetailsServiceImpl(IUserService userService) {
-        this.userService = userService;
-    }
+  public UserDetailsServiceImpl(IUserService userService) {
+    this.userService = userService;
+  }
 
-    @Override
-    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
-        User user = userService.getUserByEmail(email);
-        List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
-        return buildUserForAuthentication(user, authorities);
-    }
+  @Override
+  public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+    User user = userService.getUserByEmail(email);
+    List<GrantedAuthority> authorities = buildUserAuthority(user.getRoles());
+    return buildUserForAuthentication(user, authorities);
+  }
 
-    private org.springframework.security.core.userdetails.User buildUserForAuthentication(User user, List<GrantedAuthority> authorities) {
-        return new org.springframework.security.core.userdetails.User(
-                user.getEmail(),
-                user.getPassword(),
-                user.isEnabled(),
-                true, true, true, authorities);
-    }
+  private org.springframework.security.core.userdetails.User buildUserForAuthentication(
+      User user, List<GrantedAuthority> authorities) {
+    return new org.springframework.security.core.userdetails.User(
+        user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, authorities);
+  }
 
-    private List<GrantedAuthority> buildUserAuthority(Set<Role> roles) {
-        Set<GrantedAuthority> setAuths = new HashSet<>();
-        for (Role role : roles) {
-            setAuths.add(new SimpleGrantedAuthority(role.getRole()));
-        }
-        return new ArrayList<>(setAuths);
+  private List<GrantedAuthority> buildUserAuthority(Set<Role> roles) {
+    Set<GrantedAuthority> setAuths = new HashSet<>();
+    for (Role role : roles) {
+      setAuths.add(new SimpleGrantedAuthority(role.getRole()));
     }
+    return new ArrayList<>(setAuths);
+  }
 }

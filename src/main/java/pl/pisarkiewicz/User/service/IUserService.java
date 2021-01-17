@@ -8,23 +8,23 @@ import pl.pisarkiewicz.User.entity.User;
 import java.util.List;
 
 public interface IUserService {
-    User getUser(Long id);
+  User getUser(Long id);
 
-    Page<User> getUsersWhereIdIsNot(Long id, Pageable pageable);
+  Page<User> getUsersWhereIdIsNot(Long id, Pageable pageable);
 
-    User getUserByEmail(String email);
+  User getUserByEmail(String email);
 
-    List<User> getDoctorsList();
+  List<User> getDoctorsList();
 
-    void addUser(User user);
+  void addUser(User user);
 
-    void editUserForUser(UserEditDTO euser, User user);
+  void editUserForUser(UserEditDTO euser, User user);
 
-    void editUserForAdmin(UserEditDTO euser, User user);
+  void editUserForAdmin(UserEditDTO euser, User user);
 
-    void deleteUser(Long id);
+  void deleteUser(Long id);
 
-    void activateUser(String token);
+  void activateUser(String token);
 
-    boolean userExists(String email);
+  boolean userExists(String email);
 }

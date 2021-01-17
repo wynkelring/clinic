@@ -2,5 +2,4 @@ package pl.pisarkiewicz.Global.configuration;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
-public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {
-}
+public class SecurityWebApplicationInitializer extends AbstractSecurityWebApplicationInitializer {}

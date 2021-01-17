@@ -14,19 +14,22 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface VisitRepository extends JpaRepository<Visit, Long> {
-    Optional<Visit> findByIdAndVisitHoursDoctorIdAndCancelledIsFalse(Long id, Long doctorId);
+  Optional<Visit> findByIdAndVisitHoursDoctorIdAndCancelledIsFalse(Long id, Long doctorId);
 
-    Optional<Visit> findByIdAndPatientIdAndCancelledIsFalse(Long id, Long patientId);
+  Optional<Visit> findByIdAndPatientIdAndCancelledIsFalse(Long id, Long patientId);
 
-    Page<Visit> findAllByOrderByVisitHoursStartDate(Pageable pageable);
+  Page<Visit> findAllByOrderByVisitHoursStartDate(Pageable pageable);
 
-    Page<Visit> findAllByVisitHoursDoctorIdOrderByVisitHoursStartDate(Long doctorId, Pageable pageable);
+  Page<Visit> findAllByVisitHoursDoctorIdOrderByVisitHoursStartDate(
+      Long doctorId, Pageable pageable);
 
-    Page<Visit> findAllByPatientIdOrderByVisitHoursStartDate(Long patientId, Pageable pageable);
+  Page<Visit> findAllByPatientIdOrderByVisitHoursStartDate(Long patientId, Pageable pageable);
 
-    List<Visit> findAllByCancelledIsFalseAndApprovedIsFalseAndVisitHoursEndDateBefore(LocalDateTime lastDayOfMonth);
+  List<Visit> findAllByCancelledIsFalseAndApprovedIsFalseAndVisitHoursEndDateBefore(
+      LocalDateTime lastDayOfMonth);
 
-    boolean existsByCancelledIsFalseAndVisitHoursIdAndNumberInQueue(Long visitHoursId, Integer numberInQueue);
+  boolean existsByCancelledIsFalseAndVisitHoursIdAndNumberInQueue(
+      Long visitHoursId, Integer numberInQueue);
 
-    boolean existsByCancelledIsFalseAndVisitHoursIdAndPatientId(Long visitHoursId, Long patientId);
+  boolean existsByCancelledIsFalseAndVisitHoursIdAndPatientId(Long visitHoursId, Long patientId);
 }

@@ -14,16 +14,14 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class ActivationToken {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotNull
-    private String token;
+  @NotNull private String token;
 
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
-    private LocalDateTime createdAt = LocalDateTime.now();
+  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  private LocalDateTime createdAt = LocalDateTime.now();
 
-    @OneToOne
-    private User user;
+  @OneToOne private User user;
 }

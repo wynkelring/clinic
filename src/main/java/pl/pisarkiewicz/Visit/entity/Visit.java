@@ -16,22 +16,17 @@ import javax.persistence.*;
 @ToString
 public class Visit {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    private Integer numberInQueue;
+  private Integer numberInQueue;
 
-    private boolean cancelled;
+  private boolean cancelled;
 
-    private boolean approved;
+  private boolean approved;
 
-    @ManyToOne
-    @JsonBackReference
-    private VisitHours visitHours;
+  @ManyToOne @JsonBackReference private VisitHours visitHours;
 
-    @ManyToOne
-    @JsonBackReference
-    private User patient;
+  @ManyToOne @JsonBackReference private User patient;
 }
-

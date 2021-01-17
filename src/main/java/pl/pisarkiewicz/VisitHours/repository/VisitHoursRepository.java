@@ -16,16 +16,22 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface VisitHoursRepository extends JpaRepository<VisitHours, Long> {
-    Optional<VisitHours> findById(Long id);
+  Optional<VisitHours> findById(Long id);
 
-    Optional<VisitHours> findByIdAndDoctorId(Long id, Long doctorId);
+  Optional<VisitHours> findByIdAndDoctorId(Long id, Long doctorId);
 
-    @Query("SELECT COUNT(V) FROM VisitHours AS V WHERE V.doctor.id = :doctorId AND V.cancelled = false AND ((V.startDate >= :startDate AND V.startDate <= :endDate) OR (V.endDate >= :startDate AND V.endDate <= :endDate) OR (:startDate >= V.startDate AND :startDate <= V.endDate))")
-    Long findCountByDoctorIdAndStartDateAndEndDate(@Param("doctorId") Long doctorId, @Param("startDate") LocalDateTime startDate, @Param("endDate") LocalDateTime endDate);
+  @Query(
+      "SELECT COUNT(V) FROM VisitHours AS V WHERE V.doctor.id = :doctorId AND V.cancelled = false AND ((V.startDate >= :startDate AND V.startDate <= :endDate) OR (V.endDate >= :startDate AND V.endDate <= :endDate) OR (:startDate >= V.startDate AND :startDate <= V.endDate))")
+  Long findCountByDoctorIdAndStartDateAndEndDate(
+      @Param("doctorId") Long doctorId,
+      @Param("startDate") LocalDateTime startDate,
+      @Param("endDate") LocalDateTime endDate);
 
-    Page<VisitHours> findAllByCancelledIsFalseAndDoctorIdOrderByStartDateDesc(Long doctorId, Pageable pageable);
+  Page<VisitHours> findAllByCancelledIsFalseAndDoctorIdOrderByStartDateDesc(
+      Long doctorId, Pageable pageable);
 
-    Page<VisitHours> findAllByCancelledIsFalseOrderByStartDateDesc(Pageable pageable);
+  Page<VisitHours> findAllByCancelledIsFalseOrderByStartDateDesc(Pageable pageable);
 
-    List<VisitHours> findAllByCancelledIsFalseAndDoctorIdAndEndDateAfterOrderByStartDateAsc(Long doctorId, LocalDateTime now);
+  List<VisitHours> findAllByCancelledIsFalseAndDoctorIdAndEndDateAfterOrderByStartDateAsc(
+      Long doctorId, LocalDateTime now);
 }

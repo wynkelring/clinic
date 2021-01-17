@@ -11,16 +11,16 @@ import javax.validation.constraints.NotNull;
 @Getter
 @Setter
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
 
-    @NotNull
-    @Column(unique = true)
-    private String role;
+  @NotNull
+  @Column(unique = true)
+  private String role;
 
-    @Override
-    public String toString() {
-        return role;
-    }
+  @Override
+  public String toString() {
+    return role;
+  }
 }

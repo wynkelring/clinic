@@ -18,51 +18,51 @@ import java.util.Properties;
 @Configuration
 @EnableJpaRepositories("pl.pisarkiewicz")
 public class HibernatePersistenceConfiguration {
-    @Bean
-    public DataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost:3306/clinic?serverTimezone=UTC");
-        dataSource.setUsername("root");
-        dataSource.setPassword("root");
-        return dataSource;
-    }
+  @Bean
+  public DataSource dataSource() {
+    DriverManagerDataSource dataSource = new DriverManagerDataSource();
+    dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+    dataSource.setUrl("jdbc:mysql://localhost:3306/clinic?serverTimezone=UTC");
+    dataSource.setUsername("root");
+    dataSource.setPassword("root");
+    return dataSource;
+  }
 
-    private Properties getHibernateProperties() {
-        Properties properties = new Properties();
-        properties.put("hibernate.show_sql", "false");
-        properties.put("hibernate.hbm2ddl.auto", "create");
-        properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
-        properties.put("hibernate.default_schema", "public");
-        properties.put("hibernate.enable_lazy_load_no_trans", "true");
-        return properties;
-    }
+  private Properties getHibernateProperties() {
+    Properties properties = new Properties();
+    properties.put("hibernate.show_sql", "false");
+    properties.put("hibernate.hbm2ddl.auto", "create");
+    properties.put("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
+    properties.put("hibernate.default_schema", "public");
+    properties.put("hibernate.enable_lazy_load_no_trans", "true");
+    return properties;
+  }
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
-        lemfb.setDataSource(dataSource());
-        lemfb.setJpaVendorAdapter(jpaVendorAdapter());
-        lemfb.setJpaProperties(getHibernateProperties());
-        lemfb.setPackagesToScan("pl.pisarkiewicz");
-        return lemfb;
-    }
+  @Bean
+  public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    LocalContainerEntityManagerFactoryBean lemfb = new LocalContainerEntityManagerFactoryBean();
+    lemfb.setDataSource(dataSource());
+    lemfb.setJpaVendorAdapter(jpaVendorAdapter());
+    lemfb.setJpaProperties(getHibernateProperties());
+    lemfb.setPackagesToScan("pl.pisarkiewicz");
+    return lemfb;
+  }
 
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
+  @Bean
+  public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+    return new PersistenceExceptionTranslationPostProcessor();
+  }
 
-    @Bean
-    public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
-    }
+  @Bean
+  public JpaTransactionManager transactionManager(EntityManagerFactory emf) {
+    return new JpaTransactionManager(emf);
+  }
 
-    @Bean
-    public JpaVendorAdapter jpaVendorAdapter() {
-        HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
-        jpaVendorAdapter.setDatabase(Database.MYSQL);
-        jpaVendorAdapter.setGenerateDdl(true);
-        return jpaVendorAdapter;
-    }
+  @Bean
+  public JpaVendorAdapter jpaVendorAdapter() {
+    HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+    jpaVendorAdapter.setDatabase(Database.MYSQL);
+    jpaVendorAdapter.setGenerateDdl(true);
+    return jpaVendorAdapter;
+  }
 }

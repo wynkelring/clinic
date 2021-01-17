@@ -14,21 +14,19 @@ import java.util.List;
 @RequestMapping("/api/users")
 public class UserRestController {
 
-    private final UserService userService;
+  private final UserService userService;
 
-    public UserRestController(UserService userService) {
-        this.userService = userService;
-    }
+  public UserRestController(UserService userService) {
+    this.userService = userService;
+  }
 
-    @GetMapping(value = "/list/doctor/json", produces = "application/json")
-    public ResponseEntity<List<User>> getDoctorListJson() {
-        return new ResponseEntity<>(userService.getDoctorsList(), HttpStatus.OK);
-    }
+  @GetMapping(value = "/list/doctor/json", produces = "application/json")
+  public ResponseEntity<List<User>> getDoctorListJson() {
+    return new ResponseEntity<>(userService.getDoctorsList(), HttpStatus.OK);
+  }
 
-    @GetMapping(value = "/list/doctor/xml", produces = "application/xml")
-    public ResponseEntity<List<User>> getDoctorListXml() {
-        return new ResponseEntity<>(userService.getDoctorsList(), HttpStatus.OK);
-    }
-
+  @GetMapping(value = "/list/doctor/xml", produces = "application/xml")
+  public ResponseEntity<List<User>> getDoctorListXml() {
+    return new ResponseEntity<>(userService.getDoctorsList(), HttpStatus.OK);
+  }
 }
-

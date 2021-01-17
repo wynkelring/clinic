@@ -8,5 +8,4 @@ import javax.transaction.Transactional;
 
 @Transactional
 @Repository
-public interface ActivationTokenRepository extends JpaRepository<ActivationToken, Long> {
-}
+public interface ActivationTokenRepository extends JpaRepository<ActivationToken, Long> {}
