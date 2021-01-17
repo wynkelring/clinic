@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "mvn -Dmaven.test.failture.ignor=true clean package"
+                sh "mvn clean package -Dmaven.test.skip=true"
             }
         }
         stage('Run test') {
